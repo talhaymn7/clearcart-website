@@ -1,0 +1,58 @@
+# Opsiyonel: sitenin asıl yayını Vercel'de.
+# Bu akış yalnızca elle çalıştırılır (Actions sekmesi → Run workflow).
+# Otomatik yayına almak isterseniz aşağıdaki "push" tetiğini yorumdan çıkarın ve
+# repo ayarlarında Settings → Pages → Source: GitHub Actions seçin.
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        env:
+          # Site repo adı altında yayınlanıyor: https://<kullanici>.github.io/<repo>/
+          # Kendi alan adınıza taşırsanız bu satırı silin.
+          PAGES_BASE: /${{ github.event.repository.name }}
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

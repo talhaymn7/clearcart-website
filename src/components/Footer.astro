@@ -1,0 +1,29 @@
+---
+import { useTranslations, langPath, type Lang } from '../i18n/ui.ts';
+import Logo from './Logo.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<footer class="border-t border-brand/45 bg-surface">
+  <div class="wrap flex flex-col gap-6 py-10">
+    <a
+      href={langPath(lang)}
+      class="flex w-fit items-center gap-2 font-bold text-brand-deep"
+      aria-label={t('nav.home')}
+    >
+      <Logo class="h-6 w-6" />
+      <span class="tracking-tight">Clear Cart</span>
+    </a>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <p class="measure text-sm text-ink-soft">{t('footer.disclaimer')}</p>
+    <p class="text-sm text-ink-soft">{t('footer.rights')}</p>
+  </div>
+</footer>

@@ -1,0 +1,24 @@
+# build çıktısı
+dist/
+# üretilen tipler
+.astro/
+# bağımlılıklar
+node_modules/
+# ortam değişkenleri
+.env
+.env.production
+# Vercel CLI
+.vercel/
+# işletim sistemi / editör
+.DS_Store
+.idea/
+.vscode/
+# loglar
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+# yerel oturum / araç durumu
+.claude/
+.remember/
+# iç doküman — public repoda yayınlanmıyor
+web-sitesi-promtu.md

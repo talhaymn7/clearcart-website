@@ -1,0 +1,45 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui.ts';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const items = t<{ title: string; body: string }[]>('features.items');
+---
+
+<section id="ozellikler" class="section">
+  <div class="wrap">
+    <h2 class="measure text-3xl font-bold sm:text-4xl">{t('features.heading')}</h2>
+
+    <ul class="mt-10 grid gap-5 sm:grid-cols-2">
+      {
+        items.map((item) => (
+          <li class="card flex gap-4">
+            <span class="mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand/30 text-brand-deep">
+              <svg
+                class="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg>
+            </span>
+            <div>
+              <h3 class="text-lg font-semibold">{item.title}</h3>
+              <p class="mt-1 text-ink-soft">{item.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

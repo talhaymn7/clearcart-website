@@ -1,0 +1,25 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = 'h-7 w-7' } = Astro.props;
+---
+
+<!-- Alışveriş sepeti + onay işareti. Dekoratif: marka adı zaten yanında yazıyor. -->
+<svg
+  class={className}
+  viewBox="0 0 32 32"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M5.5 12h21l-2.4 12.2a2.2 2.2 0 0 1-2.2 1.8H10.1a2.2 2.2 0 0 1-2.2-1.8z"
+    stroke-width="2.2"></path>
+  <path d="M11 12a5 5 0 0 1 10 0" stroke-width="2.2"></path>
+  <path d="M12.4 18.4l2.9 3 5.4-5.8" stroke-width="2.8"></path>
+</svg>

@@ -1,0 +1,42 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui.ts';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="section relative overflow-hidden pt-10 sm:pt-14">
+  <!-- dekoratif zemin lekesi -->
+  <div
+    class="pointer-events-none absolute -right-24 -top-32 hidden h-80 w-80 rounded-full bg-brand/35 blur-3xl md:block"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="wrap relative grid items-center gap-10 md:grid-cols-[1.15fr_0.85fr] md:gap-14">
+    <div>
+      <h1 class="measure text-4xl font-bold sm:text-5xl">{t('hero.title')}</h1>
+      <p class="measure mt-5 text-lg text-ink-soft">{t('hero.subtitle')}</p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#bekleme-listesi" class="btn btn-primary">{t('hero.primaryCta')}</a>
+        <a href="#nasil-calisir" class="btn btn-secondary">{t('hero.secondaryCta')}</a>
+      </div>
+    </div>
+
+    <div class="mx-auto w-full max-w-[16rem] sm:max-w-[18rem]">
+      <!-- SCREENSHOT: bu kutuyu public/screens/hero.png ile değiştir -->
+      <div class="rounded-[2rem] border border-brand/60 bg-surface-card p-2.5">
+        <div class="screen-frame rounded-[1.5rem]">
+          <span class="px-4 text-center text-sm font-medium text-ink-soft">
+            {t('screens.placeholder')}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

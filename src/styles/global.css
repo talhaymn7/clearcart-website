@@ -1,0 +1,190 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------
+   Marka token'ları (Tailwind 4 — ayrı bir tailwind.config dosyası yok)
+   #ab8abf yalnızca dekoratiftir: gradyan, kenarlık, ikon dolgusu.
+   Üzerine ya da altına metin yazılmaz (kontrast ~2.9:1 / ~2.2:1).
+---------------------------------------------------------------- */
+@theme {
+  --color-brand: #ab8abf;
+  --color-brand-deep: #674879;
+  --color-surface: #e8dfd2;
+  --color-surface-card: #f5f0e8;
+  --color-ink: #2e2333;
+  --color-ink-soft: #5b4f63;
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+
+  --radius-card: 16px;
+  --radius-soft: 12px;
+}
+
+/* Aynı token'lar düz CSS için de erişilebilir olsun. */
+:root {
+  --brand: #ab8abf; /* dekoratif */
+  --brand-deep: #674879; /* etkileşim + başlık */
+  --surface: #e8dfd2; /* sayfa zemini */
+  --surface-card: #f5f0e8; /* kart zemini */
+  --ink: #2e2333; /* gövde metni */
+  --ink-soft: #5b4f63; /* ikincil metin */
+
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem; /* sticky header payı */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--brand-deep);
+    line-height: 1.2;
+    text-wrap: balance;
+    font-weight: 700;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Odak halkası her yerde görünür — outline: none hiçbir yerde yok. */
+  :where(a, button, input, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--brand-deep);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background-color: var(--brand-deep);
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  .section {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .measure {
+    max-width: 62ch;
+  }
+
+  .card {
+    background-color: var(--surface-card);
+    border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent);
+    border-radius: var(--radius-card);
+    padding: 1.5rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease,
+      border-color 150ms ease;
+  }
+
+  .btn-primary {
+    background-color: var(--brand-deep);
+    color: #ffffff;
+    border: 1px solid var(--brand-deep);
+  }
+
+  .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--brand-deep) 88%, #000);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.7;
+    cursor: progress;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--brand-deep);
+    border: 1px solid var(--brand-deep);
+  }
+
+  .btn-secondary:hover {
+    background-color: color-mix(in srgb, var(--brand) 22%, transparent);
+  }
+
+  /* Ekran görüntüsü gelene kadar duran boş çerçeve. */
+  .screen-frame {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-card);
+    border: 1px solid color-mix(in srgb, var(--brand) 60%, transparent);
+    background-image: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--brand) 28%, var(--surface-card)),
+      var(--surface-card) 60%,
+      color-mix(in srgb, var(--brand) 18%, var(--surface-card))
+    );
+    overflow: hidden;
+  }
+
+  .screen-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .divider {
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--brand) 70%, transparent),
+      transparent
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

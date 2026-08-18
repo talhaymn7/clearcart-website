@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "Clear Cart — Ürünün fotoğrafını çek, içinde ne olduğunu öğren",
+    "description": "Clear Cart, markette elindeki ürünü tanır ve içeriğini senin alerji profilinle karşılaştırır. Küçük puntoları okumana gerek kalmaz.",
+    "ogImageAlt": "Clear Cart — gıda alerjisi olanlar için ürün tarama uygulaması",
+    "langName": "Türkçe"
+  },
+  "nav": {
+    "skipToContent": "İçeriğe geç",
+    "home": "Clear Cart ana sayfa",
+    "waitlist": "Bekleme listesi",
+    "languageLabel": "Dil seçimi",
+    "menuOpen": "Menüyü aç",
+    "menuClose": "Menüyü kapat",
+    "links": {
+      "how": "Nasıl çalışır",
+      "features": "Özellikler",
+      "contact": "İletişim"
+    },
+    "primaryLabel": "Ana menü",
+    "continue": "Türkçe sayfaya devam et"
+  },
+  "hero": {
+    "title": "Ürünün fotoğrafını çek, içinde ne olduğunu saniyeler içinde öğren.",
+    "subtitle": "Clear Cart, markette elindeki ürünü tanır ve içeriğini senin alerji profilinle karşılaştırır. Küçük puntoları okumana gerek kalmaz.",
+    "primaryCta": "Bekleme listesine katıl",
+    "secondaryCta": "Nasıl çalışır?"
+  },
+  "problem": {
+    "heading": "Alerjiyle alışveriş yorucu.",
+    "cards": [
+      {
+        "title": "Minik puntolar.",
+        "body": "İçindekiler listesi çoğu üründe okunamayacak kadar küçük."
+      },
+      {
+        "title": "İçerikler değişiyor.",
+        "body": "Bildiğin bir ürünün formülü habersiz değişebiliyor."
+      },
+      {
+        "title": "Sadece kendin için değil.",
+        "body": "Çocuğun, misafirin, arkadaşın için de aynı kontrolü yapman gerekiyor."
+      }
+    ]
+  },
+  "how": {
+    "heading": "Üç adımda sonuç.",
+    "note": "Ürün tanıma, yapay zekâ destekli görsel eşleştirmeyle çalışır.",
+    "steps": [
+      {
+        "title": "Fotoğrafı çek.",
+        "body": "Ürünü telefonunla çek — barkodu görünüyorsa daha da hızlı."
+      },
+      {
+        "title": "Ürün tanınır.",
+        "body": "Clear Cart ürünü barkodundan ya da görünüşünden bulur."
+      },
+      {
+        "title": "Uyarıyı gör.",
+        "body": "İçindekiler senin alerji profilinle karşılaştırılır, riskli olan her şey işaretlenir."
+      }
+    ]
+  },
+  "features": {
+    "heading": "Neler yapıyor?",
+    "items": [
+      {
+        "title": "Kendi alerji profilin.",
+        "body": "Alerjenlerini bir kez seç, her sorgu ona göre yapılsın."
+      },
+      {
+        "title": "Barkod ve görsel tanıma.",
+        "body": "Barkod okunmazsa ürün görünüşünden bulunur."
+      },
+      {
+        "title": "Saniyeler içinde.",
+        "body": "Raf önünde beklemene gerek yok."
+      },
+      {
+        "title": "Büyüyen katalog.",
+        "body": "Ürün veritabanı sürekli genişliyor."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "Uygulamadan görüntüler",
+    "description": "Ekran görüntüleri yayına yakın eklenecek.",
+    "placeholder": "Ekran görüntüsü",
+    "items": [
+      "Fotoğraf çekme",
+      "Ürün sonucu",
+      "Alerji profili"
+    ]
+  },
+  "waitlist": {
+    "heading": "Yayınlandığında ilk sen haberdar ol.",
+    "description": "E-posta adresini bırak, uygulama yayına girdiğinde tek bir bilgilendirme maili gönderelim. Başka hiçbir şey göndermiyoruz.",
+    "label": "E-posta adresin",
+    "placeholder": "ornek@eposta.com",
+    "button": "Haber ver",
+    "sending": "Gönderiliyor…",
+    "success": "Kaydını aldık. Yayınlandığında haber vereceğiz.",
+    "error": "Bir şeyler ters gitti. Lütfen tekrar dener misin?",
+    "privacy": "Adresini kimseyle paylaşmıyoruz, istediğin an listeden çıkabilirsin.",
+    "subject": "Clear Cart — yeni bekleme listesi kaydı"
+  },
+  "contact": {
+    "heading": "Bize ulaş",
+    "description": "Sorun, fikrin ya da eklenmesini istediğin bir ürün mü var? Bize e-postayla ya da sosyal medyadan yazabilirsin.",
+    "emailLabel": "E-posta gönder",
+    "instagramLabel": "Instagram",
+    "linkedinLabel": "LinkedIn"
+  },
+  "footer": {
+    "disclaimer": "Clear Cart yardımcı bir araçtır, tıbbi tavsiye yerine geçmez. Ciddi alerjiniz varsa ürün etiketini mutlaka kontrol edin.",
+    "rights": "© 2026 Clear Cart. Tüm hakları saklıdır."
+  }
+}

@@ -1,0 +1,85 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import '../styles/global.css';
+import { SITE, hasSiteUrl, siteOrigin } from '../config.ts';
+import { useTranslations, withBase, type Lang } from '../i18n/ui.ts';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Sosyal medya görseli yalnızca PNG gerçekten üretildiyse duyurulur (botlar SVG işlemez).
+const ogImageExists = fs.existsSync(path.join(process.cwd(), 'public', 'og-image.png'));
+const ogImage = hasSiteUrl && ogImageExists ? `${siteOrigin}${withBase('og-image.png')}` : null;
+
+// siteUrl boşken canonical / hreflang üretilmez.
+const canonical = hasSiteUrl ? `${siteOrigin}${withBase(`${lang}/`)}` : null;
+const alternates = hasSiteUrl
+  ? [
+      { hreflang: 'tr', href: `${siteOrigin}${withBase('tr/')}` },
+      { hreflang: 'en', href: `${siteOrigin}${withBase('en/')}` },
+      { hreflang: 'x-default', href: `${siteOrigin}${withBase('tr/')}` },
+    ]
+  : [];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#674879" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{t('meta.title')}</title>
+    <meta name="description" content={t('meta.description')} />
+
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+
+    {canonical && <link rel="canonical" href={canonical} />}
+    {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_US'} />
+    <meta property="og:title" content={t('meta.title')} />
+    <meta property="og:description" content={t('meta.description')} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {
+      ogImage && (
+        <>
+          <meta property="og:image" content={ogImage} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content={t('meta.ogImageAlt')} />
+        </>
+      )
+    }
+
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={t('meta.title')} />
+    <meta name="twitter:description" content={t('meta.description')} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+  </head>
+
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-brand-deep focus:px-4 focus:py-2 focus:text-white">
+      {t('nav.skipToContent')}
+    </a>
+
+    <Header lang={lang} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+  </body>
+</html>

@@ -1,0 +1,28 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui.ts';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const cards = t<{ title: string; body: string }[]>('problem.cards');
+---
+
+<section id="sorun" class="section">
+  <div class="wrap">
+    <h2 class="measure text-3xl font-bold sm:text-4xl">{t('problem.heading')}</h2>
+
+    <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        cards.map((card) => (
+          <li class="card">
+            <h3 class="text-lg font-semibold">{card.title}</h3>
+            <p class="mt-2 text-ink-soft">{card.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

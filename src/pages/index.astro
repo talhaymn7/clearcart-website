@@ -1,0 +1,22 @@
+---
+// Kök adres varsayılan dile götürür. Meta refresh: JavaScript kapalıyken de çalışır.
+import { defaultLang, langPath, useTranslations } from '../i18n/ui.ts';
+
+const target = langPath(defaultLang);
+const t = useTranslations(defaultLang);
+---
+
+<!doctype html>
+<html lang={defaultLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Clear Cart</title>
+  </head>
+  <body style="font-family: system-ui, sans-serif; background:#e8dfd2; color:#2e2333; padding:2rem;">
+    <a href={target} style="color:#674879;">{t('nav.continue')}</a>
+  </body>
+</html>

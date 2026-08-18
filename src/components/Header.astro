@@ -1,0 +1,131 @@
+---
+import { useTranslations, langPath, languages, type Lang } from '../i18n/ui.ts';
+import Logo from './Logo.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const sectionLinks = [
+  { href: '#nasil-calisir', label: t('nav.links.how') },
+  { href: '#ozellikler', label: t('nav.links.features') },
+  { href: '#iletisim', label: t('nav.links.contact') },
+];
+
+const langCodes = Object.keys(languages) as Lang[];
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-brand/40 bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/75"
+>
+  <div class="wrap flex items-center justify-between gap-3 py-3">
+    <a
+      href={langPath(lang)}
+      class="flex items-center gap-2 font-bold text-brand-deep"
+      aria-label={t('nav.home')}
+    >
+      <Logo />
+      <span class="text-lg tracking-tight">Clear Cart</span>
+    </a>
+
+    <div class="flex items-center gap-2 sm:gap-4">
+      <nav class="hidden items-center gap-5 md:flex" aria-label={t('nav.primaryLabel')}>
+        {
+          sectionLinks.map((link) => (
+            <a href={link.href} class="text-sm font-medium text-ink-soft hover:text-brand-deep">
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Dil değiştirici: gerçek linkler, JS kapalıyken de çalışır. -->
+      <nav
+        class="flex items-center rounded-full border border-brand-deep/50 p-0.5 text-sm font-semibold"
+        aria-label={t('nav.languageLabel')}
+      >
+        {
+          langCodes.map((code) => (
+            <a
+              href={langPath(code)}
+              hreflang={code}
+              aria-current={code === lang ? 'true' : undefined}
+              class:list={[
+                'rounded-full px-2.5 py-1 uppercase',
+                code === lang ? 'bg-brand-deep text-white' : 'text-brand-deep hover:bg-brand/25',
+              ]}
+            >
+              {code}
+            </a>
+          ))
+        }
+      </nav>
+
+      <a href="#bekleme-listesi" class="btn btn-primary hidden px-4 py-2 text-sm sm:inline-flex">
+        {t('nav.waitlist')}
+      </a>
+
+      <button
+        type="button"
+        id="menu-toggle"
+        class="inline-flex items-center justify-center rounded-full border border-brand-deep/50 p-2 text-brand-deep md:hidden"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label={t('nav.menuOpen')}
+        data-label-open={t('nav.menuOpen')}
+        data-label-close={t('nav.menuClose')}
+      >
+        <svg
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="wrap hidden border-t border-brand/40 pb-4 md:hidden">
+    <nav class="flex flex-col gap-1 pt-3" aria-label={t('nav.primaryLabel')}>
+      {
+        sectionLinks.map((link) => (
+          <a href={link.href} class="rounded-soft px-2 py-2 font-medium text-ink hover:bg-brand/20">
+            {link.label}
+          </a>
+        ))
+      }
+      <a href="#bekleme-listesi" class="btn btn-primary mt-2">{t('nav.waitlist')}</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      const label = open ? toggle.dataset.labelClose : toggle.dataset.labelOpen;
+      if (label) toggle.setAttribute('aria-label', label);
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(menu.classList.contains('hidden'));
+    });
+
+    menu.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+  }
+</script>

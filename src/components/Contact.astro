@@ -1,0 +1,83 @@
+---
+import { SITE } from '../config.ts';
+import { useTranslations, type Lang } from '../i18n/ui.ts';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="iletisim" class="section bg-surface-card">
+  <div class="wrap">
+    <h2 class="measure text-3xl font-bold sm:text-4xl">{t('contact.heading')}</h2>
+    <p class="measure mt-3 text-ink-soft">{t('contact.description')}</p>
+
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <a href={`mailto:${SITE.email}`} class="btn btn-primary">
+        <svg
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+          <path d="M3.5 6.5 12 13l8.5-6.5"></path>
+        </svg>
+        {SITE.email}
+      </a>
+
+      <a
+        href={SITE.instagram}
+        rel="me noopener noreferrer"
+        target="_blank"
+        class="btn btn-secondary"
+      >
+        <svg
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M17.2 6.8h.01"></path>
+        </svg>
+        {t('contact.instagramLabel')}
+      </a>
+
+      <a href={SITE.linkedin} rel="me noopener noreferrer" target="_blank" class="btn btn-secondary">
+        <svg
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+          <path d="M7.5 10.5V17"></path>
+          <path d="M7.5 7.4h.01"></path>
+          <path d="M11.5 17v-3.6a2.4 2.4 0 0 1 4.8 0V17"></path>
+          <path d="M11.5 10.5V17"></path>
+        </svg>
+        {t('contact.linkedinLabel')}
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "Clear Cart — Photograph the product, know what's inside",
+    "description": "Clear Cart recognises the product in your hand and checks its ingredients against your own allergy profile. No more squinting at the fine print.",
+    "ogImageAlt": "Clear Cart — product scanning app for people with food allergies",
+    "langName": "English"
+  },
+  "nav": {
+    "skipToContent": "Skip to content",
+    "home": "Clear Cart home",
+    "waitlist": "Waitlist",
+    "languageLabel": "Language",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "links": {
+      "how": "How it works",
+      "features": "Features",
+      "contact": "Contact"
+    },
+    "primaryLabel": "Main menu",
+    "continue": "Continue to the English page"
+  },
+  "hero": {
+    "title": "Photograph the product. Know what's inside in seconds.",
+    "subtitle": "Clear Cart recognises the product in your hand and checks its ingredients against your own allergy profile. No more squinting at the fine print.",
+    "primaryCta": "Join the waitlist",
+    "secondaryCta": "How it works"
+  },
+  "problem": {
+    "heading": "Shopping with an allergy is exhausting.",
+    "cards": [
+      {
+        "title": "Fine print.",
+        "body": "On most products the ingredient list is too small to read."
+      },
+      {
+        "title": "Recipes change.",
+        "body": "A product you trust can be reformulated without notice."
+      },
+      {
+        "title": "Not only for you.",
+        "body": "You run the same check for your child, your guest, your friend."
+      }
+    ]
+  },
+  "how": {
+    "heading": "Three steps to an answer.",
+    "note": "Product recognition is powered by AI-assisted visual matching.",
+    "steps": [
+      {
+        "title": "Take a photo.",
+        "body": "Snap the product — even faster if the barcode is visible."
+      },
+      {
+        "title": "We identify it.",
+        "body": "Clear Cart finds the product by its barcode or by how it looks."
+      },
+      {
+        "title": "See the warning.",
+        "body": "Ingredients are matched against your allergy profile and anything risky is flagged."
+      }
+    ]
+  },
+  "features": {
+    "heading": "What it does",
+    "items": [
+      {
+        "title": "Your own profile.",
+        "body": "Pick your allergens once; every check uses them."
+      },
+      {
+        "title": "Barcode and visual matching.",
+        "body": "If the barcode won't scan, the photo still works."
+      },
+      {
+        "title": "Seconds, not minutes.",
+        "body": "No standing in the aisle reading labels."
+      },
+      {
+        "title": "A growing catalogue.",
+        "body": "The product database keeps expanding."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "Inside the app",
+    "description": "Screenshots will be added closer to launch.",
+    "placeholder": "Screenshot",
+    "items": [
+      "Taking a photo",
+      "Product result",
+      "Allergy profile"
+    ]
+  },
+  "waitlist": {
+    "heading": "Be the first to know at launch.",
+    "description": "Leave your email and we'll send exactly one message when the app goes live. Nothing else.",
+    "label": "Your email address",
+    "placeholder": "you@example.com",
+    "button": "Notify me",
+    "sending": "Sending…",
+    "success": "You're on the list. We'll be in touch at launch.",
+    "error": "Something went wrong. Please try again.",
+    "privacy": "We never share your address, and you can leave the list at any time.",
+    "subject": "Clear Cart — new waitlist signup"
+  },
+  "contact": {
+    "heading": "Get in touch",
+    "description": "A question, an idea, or a product you'd like us to add? Email us or send a message on social media.",
+    "emailLabel": "Send an email",
+    "instagramLabel": "Instagram",
+    "linkedinLabel": "LinkedIn"
+  },
+  "footer": {
+    "disclaimer": "Clear Cart is a helper, not medical advice. If you have a serious allergy, always check the product label.",
+    "rights": "© 2026 Clear Cart. All rights reserved."
+  }
+}
