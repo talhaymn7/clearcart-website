@@ -41,7 +41,9 @@ const alternates = hasSiteUrl
     <title>{t('meta.title')}</title>
     <meta name="description" content={t('meta.description')} />
 
-    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="icon" type="image/png" sizes="32x32" href={withBase('favicon-32.png')} />
+    <link rel="icon" type="image/png" sizes="16x16" href={withBase('favicon-16.png')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase('apple-touch-icon.png')} />
 
     {canonical && <link rel="canonical" href={canonical} />}
     {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}

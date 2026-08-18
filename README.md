@@ -79,14 +79,47 @@ sınıfındadır ve içine konan `<img>` otomatik olarak kutuyu doldurur.
 
 ---
 
+## Logo ve favicon
+
+Kaynak logo: **`src/img/clear_cart_logo.png`** (pembe zemin + sepet + üç kesişen
+yuvarlak + "CLEAR CART" yazısı).
+
+Sitede yalnızca **sepet ve arkasındaki üç yuvarlak** kullanılır; alttaki yazı ve dış
+zemin kırpılır, köşeler yuvarlatılır. Üretilen dosyalar:
+
+| Dosya                          | Nerede kullanılıyor            |
+| ------------------------------ | ------------------------------ |
+| `public/logo.png` (512px)      | Header ve footer'daki işaret   |
+| `public/apple-touch-icon.png`  | iOS ana ekran ikonu            |
+| `public/favicon-32.png`        | Tarayıcı sekmesi               |
+| `public/favicon-16.png`        | Tarayıcı sekmesi (küçük)       |
+
+Logo değişirse tek komutla hepsi yeniden üretilir:
+
+```bash
+python scripts/make-logo.py
+npx -y sharp-cli --input src/img/og-image.svg --output public/og-image.png resize 1200 630
+```
+
+Betik `Pillow` ister (`pip install pillow`) ve bilerek `package.json`'a bağımlılık
+olarak eklenmemiştir — yalnızca logo değişince, elle çalıştırılır.
+
+> Yeni logonun oranları farklıysa `scripts/make-logo.py` içindeki `SRC_BOX`
+> koordinatlarını yeniden ölçün; betik kırpma kutusunu otomatik bulmaz.
+
+---
+
 ## Sosyal medya görseli (og-image)
 
-`public/og-image.svg` marka renkleriyle hazırlanmış kaynak dosyadır.
+`src/img/og-image.svg` marka renkleriyle hazırlanmış kaynak dosyadır (yayınlanmaz, sadece PNG üretmek için); marka işareti
+içine **data URI olarak gömülüdür** (harici dosya referansı SVG → PNG dönüşümünde
+çözülmüyor). `scripts/make-logo.py` bu gömülü hâli de günceller.
+
 **Sosyal medya botları SVG işlemez**, bu yüzden yayınlanan dosya PNG olmalıdır.
 Kaynağı değiştirdiğinizde PNG'yi şu komutla yeniden üretin:
 
 ```bash
-npx -y sharp-cli --input public/og-image.svg --output public/og-image.png resize 1200 630
+npx -y sharp-cli --input src/img/og-image.svg --output public/og-image.png resize 1200 630
 ```
 
 `sharp-cli` bilerek projeye bağımlılık olarak eklenmemiştir; `npx` ile tek seferlik
@@ -153,6 +186,7 @@ Hepsi tek dosyada: **`src/config.ts`**. Hiçbiri bileşenlerin içine sabit yaz�
 **hiç üretilmez** — yanlış alan adı vermektense hiç vermemek tercih edilmiştir.
 
 Bunlar dışında bekleyen tek şey **gerçek ekran görüntüleridir** (yukarıdaki bölüme bakın).
+Logo ve favicon `src/img/clear_cart_logo.png` dosyasından üretilmiş durumda.
 
 ---
 
