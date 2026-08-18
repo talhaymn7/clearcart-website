@@ -1,5 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import { useTranslations, type Lang } from '../i18n/ui.ts';
+import home from '../img/screens/home.png';
+import allergens from '../img/screens/allergens.png';
+import scanResult from '../img/screens/scan-result.png';
 
 interface Props {
   lang: Lang;
@@ -7,8 +11,8 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const items = t<string[]>('screens.items');
-const placeholder = t('screens.placeholder');
+const items = t<{ caption: string; alt: string }[]>('screens.items');
+const sources = [home, allergens, scanResult];
 ---
 
 <section id="ekranlar" class="section bg-surface-card">
@@ -16,17 +20,21 @@ const placeholder = t('screens.placeholder');
     <h2 class="measure text-3xl font-bold sm:text-4xl">{t('screens.heading')}</h2>
     <p class="measure mt-3 text-ink-soft">{t('screens.description')}</p>
 
-    <!-- SCREENSHOT: bu kutuları public/screens/01.png, 02.png, 03.png ile değiştir
-         (9:16 oranında, örn. 1080×1920). Nasıl ekleneceği README'de anlatılıyor. -->
     <ul class="mt-10 grid gap-6 sm:grid-cols-3">
       {
-        items.map((caption, index) => (
+        items.map((item, index) => (
           <li>
-            <div class="screen-frame">
-              <span class="px-4 text-center text-sm font-medium text-ink-soft">{placeholder}</span>
+            <div class="screen-frame mx-auto max-w-[15rem] sm:max-w-[17rem]">
+              <Image
+                src={sources[index]}
+                alt={item.alt}
+                widths={[240, 272, 480, 544]}
+                sizes="(min-width: 640px) 17rem, 15rem"
+                loading="lazy"
+              />
             </div>
             <p class="mt-3 text-center text-sm text-ink-soft">
-              {String(index + 1)}. {caption}
+              {String(index + 1)}. {item.caption}
             </p>
           </li>
         ))

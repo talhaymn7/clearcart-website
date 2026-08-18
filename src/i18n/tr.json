@@ -24,7 +24,8 @@
     "title": "Ürünün fotoğrafını çek, içinde ne olduğunu saniyeler içinde öğren.",
     "subtitle": "Clear Cart, markette elindeki ürünü tanır ve içeriğini senin alerji profilinle karşılaştırır. Küçük puntoları okumana gerek kalmaz.",
     "primaryCta": "Bekleme listesine katıl",
-    "secondaryCta": "Nasıl çalışır?"
+    "secondaryCta": "Nasıl çalışır?",
+    "imageAlt": "Clear Cart uygulamasının açılış ekranını gösteren telefon görseli."
   },
   "problem": {
     "heading": "Alerjiyle alışveriş yorucu.",
@@ -84,12 +85,20 @@
   },
   "screens": {
     "heading": "Uygulamadan görüntüler",
-    "description": "Ekran görüntüleri yayına yakın eklenecek.",
-    "placeholder": "Ekran görüntüsü",
+    "description": "Uygulamanın erken sürümünden alınmış gerçek ekran görüntüleri.",
     "items": [
-      "Fotoğraf çekme",
-      "Ürün sonucu",
-      "Alerji profili"
+      {
+        "caption": "Ana ekran",
+        "alt": "Clear Cart ana ekranı: alerjen bilgileri ve ürün taratma kartları."
+      },
+      {
+        "caption": "Alerjen profilini güncelle",
+        "alt": "Alerjen güncelleme ekranı: gluten, süt, soya gibi alerjenlerin işaretlendiği liste."
+      },
+      {
+        "caption": "Tarama sonucu",
+        "alt": "Tarama sonucu ekranı: ürün bilgisi, benzerlik skoru ve gluten alerjeni uyarısı."
+      }
     ]
   },
   "waitlist": {

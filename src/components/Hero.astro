@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { useTranslations, type Lang } from '../i18n/ui.ts';
+import mockup from '../img/mockup.png';
 
 interface Props {
   lang: Lang;
@@ -28,15 +30,16 @@ const t = useTranslations(lang);
       </div>
     </div>
 
-    <div class="mx-auto w-full max-w-[16rem] sm:max-w-[18rem]">
-      <!-- SCREENSHOT: bu kutuyu public/screens/hero.png ile değiştir -->
-      <div class="rounded-[2rem] border border-brand/60 bg-surface-card p-2.5">
-        <div class="screen-frame rounded-[1.5rem]">
-          <span class="px-4 text-center text-sm font-medium text-ink-soft">
-            {t('screens.placeholder')}
-          </span>
-        </div>
-      </div>
+    <!-- Mockup kendi mor zeminiyle geliyor; çerçeveye değil doğrudan yerleştirilir. -->
+    <div class="mx-auto w-full max-w-[18rem] sm:max-w-[21rem]">
+      <Image
+        src={mockup}
+        alt={t('hero.imageAlt')}
+        widths={[288, 336, 380]}
+        sizes="(min-width: 768px) 21rem, 18rem"
+        loading="eager"
+        class="w-full rounded-[1.75rem] shadow-xl shadow-brand-deep/20"
+      />
     </div>
   </div>
 </section>

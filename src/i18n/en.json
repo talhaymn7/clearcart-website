@@ -24,7 +24,8 @@
     "title": "Photograph the product. Know what's inside in seconds.",
     "subtitle": "Clear Cart recognises the product in your hand and checks its ingredients against your own allergy profile. No more squinting at the fine print.",
     "primaryCta": "Join the waitlist",
-    "secondaryCta": "How it works"
+    "secondaryCta": "How it works",
+    "imageAlt": "Phone showing the Clear Cart app opening screen."
   },
   "problem": {
     "heading": "Shopping with an allergy is exhausting.",
@@ -84,12 +85,20 @@
   },
   "screens": {
     "heading": "Inside the app",
-    "description": "Screenshots will be added closer to launch.",
-    "placeholder": "Screenshot",
+    "description": "Real screenshots from an early build of the app.",
     "items": [
-      "Taking a photo",
-      "Product result",
-      "Allergy profile"
+      {
+        "caption": "Home screen",
+        "alt": "Clear Cart home screen with the allergen profile and product scanning cards."
+      },
+      {
+        "caption": "Update your allergen profile",
+        "alt": "Allergen settings screen with a checklist of allergens such as gluten, milk and soy."
+      },
+      {
+        "caption": "Scan result",
+        "alt": "Scan result screen showing product details, a match score and a gluten allergen warning."
+      }
     ]
   },
   "waitlist": {

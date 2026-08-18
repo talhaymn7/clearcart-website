@@ -44,38 +44,41 @@ node -e "const a=require('./src/i18n/tr.json'),b=require('./src/i18n/en.json');c
 
 ---
 
-## Ekran görüntülerini nasıl eklerim?
+## Ekran görüntüleri
 
-Şu an hero bölümünde bir, "Uygulamadan görüntüler" bölümünde üç adet boş
-**placeholder** kutusu var. Gerçek görselleri şöyle koyarsınız:
+Hero bölümünde `src/img/mockup.png` (kendi mor zeminiyle gelen 3B telefon görseli),
+"Uygulamadan görüntüler" bölümünde ise `src/img/screens/` altındaki üç ekran
+görüntüsü kullanılır: `home.png`, `allergens.png`, `scan-result.png`.
 
-1. Ekran görüntülerini **9:16 oranında** (örn. 1080×1920) PNG olarak hazırlayın.
-2. Dosyaları `public/screens/` klasörüne koyun: `hero.png`, `01.png`, `02.png`, `03.png`.
-3. İlgili bileşende `<!-- SCREENSHOT: ... -->` yorumunun altındaki `.screen-frame`
-   kutusunun içine `<img>` ekleyin:
+Görseller `src/img/` altında durur ve `astro:assets` içindeki `<Image />` ile
+sunulur; boyutlandırma, WebP dönüşümü ve `srcset` üretimini Astro kendisi yapar.
+Bu yüzden `public/` değil `src/` altında olmaları gerekir.
 
-   ```astro
-   <div class="screen-frame">
-     <img
-       src={withBase('screens/01.png')}
-       alt=""
-       width="1080"
-       height="1920"
-       loading="lazy"
-       decoding="async"
-     />
-   </div>
+**Yeni ekran görüntüsü eklemek / değiştirmek:**
+
+1. Ham görüntüyü `src/img/` içine koyun.
+2. Galeri kutuları `9 / 19.5` oranındadır (`.screen-frame`, `object-fit: cover`).
+   Mevcut üç görüntü bu orana getirilmiştir; farklı oranda bir görsel kenarlarından
+   kırpılır. Gerekirse `sharp` ile kırpın ya da kenar pikselini kopyalayarak uzatın:
+
+   ```bash
+   node --input-type=module -e "
+   import sharp from 'sharp';
+   await sharp('src/img/ham.png')
+     .extract({ left: 0, top: 0, width: 1067, height: 2074 })
+     .extend({ top: 200, bottom: 38, extendWith: 'copy' })
+     .png().toFile('src/img/screens/yeni.png');
+   "
    ```
 
-   - `withBase` fonksiyonu `src/i18n/ui.ts` içinden gelir; alt klasör altında
-     yayınlandığında yolun bozulmaması için gereklidir.
-   - Hero'daki görsele `loading="lazy"` **koymayın** (ilk ekranda görünüyor).
-   - `alt` metni anlamlıysa `src/i18n/*.json` içine yeni bir anahtar olarak ekleyin;
-     görsel tamamen dekoratifse `alt=""` bırakın.
-4. Yerini bulmak için: `src/components/Hero.astro` ve `src/components/Screenshots.astro`.
+3. `src/components/Screenshots.astro` içinde import edip `sources` dizisine ekleyin.
+4. Başlığı ve `alt` metnini **iki dilde** `src/i18n/tr.json` ve `src/i18n/en.json`
+   içindeki `screens.items` dizisine yazın (`caption` + `alt`). Anahtar eksikse
+   derleme hata verir, böylece iki dil ayrışmaz.
+5. Hero görseli `loading="eager"` ile yüklenir (ilk ekranda görünüyor),
+   galerideki görseller `lazy`.
 
-Placeholder kutusunun stili `src/styles/global.css` içindeki `.screen-frame`
-sınıfındadır ve içine konan `<img>` otomatik olarak kutuyu doldurur.
+Kutu stili `src/styles/global.css` içindeki `.screen-frame` sınıfındadır.
 
 ---
 
@@ -185,7 +188,7 @@ Hepsi tek dosyada: **`src/config.ts`**. Hiçbiri bileşenlerin içine sabit yaz�
 `siteUrl` boş bırakılırsa `canonical`, `hreflang`, `og:url` ve `sitemap.xml`
 **hiç üretilmez** — yanlış alan adı vermektense hiç vermemek tercih edilmiştir.
 
-Bunlar dışında bekleyen tek şey **gerçek ekran görüntüleridir** (yukarıdaki bölüme bakın).
+Gerçek ekran görüntüleri ve hero mockup’ı eklendi (yukarıdaki bölüme bakın).
 Logo ve favicon `src/img/clear_cart_logo.png` dosyasından üretilmiş durumda.
 
 ---
