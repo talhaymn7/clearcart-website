@@ -120,8 +120,16 @@
     "instagramLabel": "Instagram",
     "linkedinLabel": "LinkedIn"
   },
+  "about": {
+    "metaTitle": "Hakkımızda — Clear Cart",
+    "metaDescription": "Clear Cart'ı kimlerin, neden geliştirdiğini anlatan sayfa.",
+    "heading": "Hakkımızda",
+    "intro": "Clear Cart'ı, alerjiyle yaşamanın günlük yükünü azaltmak için kurduk. Küçük bir ekibiz; ürünü kendi ihtiyacımızdan doğurduk ve hâlâ öyle geliştiriyoruz.",
+    "teamHeading": "Ekip"
+  },
   "footer": {
     "disclaimer": "Clear Cart yardımcı bir araçtır, tıbbi tavsiye yerine geçmez. Ciddi alerjiniz varsa ürün etiketini mutlaka kontrol edin.",
-    "rights": "© 2026 Clear Cart. Tüm hakları saklıdır."
+    "rights": "© 2026 Clear Cart. Tüm hakları saklıdır.",
+    "about": "Hakkımızda"
   }
 }

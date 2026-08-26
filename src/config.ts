@@ -10,6 +10,23 @@ export const SITE = {
   formEndpoint: 'https://formspree.io/f/mzepkbew',
 
   /**
+   * Hakkımızda sayfasındaki ekip. İsimler çevrilmediği için i18n dosyalarında
+   * değil burada durur — iki JSON'a yazılsaydı bir düzeltme iki dosya
+   * değiştirmeyi gerektirir ve diller ayrışabilirdi.
+   * Diziye eleman ekleyip çıkarmak yeterli; About.astro kaç kişi varsa o kadar basar.
+   *
+   * DİKKAT: Sıra, About.astro içindeki `photos` dizisinin sırasıyla eşleşmek
+   * zorundadır (Screenshots.astro'daki ile aynı kural). Burada sırayı
+   * değiştirirseniz orada da değiştirin — yoksa fotoğraf yanlış isme düşer
+   * ve build bunu yakalamaz.
+   */
+  team: [
+    { name: 'Ahmet Talha Yaman' },
+    { name: 'Aslınur Bakmaz' },
+    { name: 'Tolga Duy' },
+  ],
+
+  /**
    * Sitenin yayınlandığı adres. Boş bırakılırsa canonical, hreflang, og:url
    * ve sitemap üretilmez. Kendi alan adınız olduğunda sadece bu satırı değiştirin.
    */

@@ -1,8 +1,16 @@
 # Clear Cart — tanıtım sitesi
 
-Clear Cart'ın iki dilli (Türkçe + İngilizce), tek sayfalık statik tanıtım sitesi.
+Clear Cart'ın iki dilli (Türkçe + İngilizce) statik tanıtım sitesi.
 Astro + Tailwind CSS ile kurulmuştur; arkasında veritabanı, kullanıcı girişi veya
 yönetim paneli yoktur.
+
+Sayfalar:
+
+| Adres | İçerik |
+|---|---|
+| `/tr/` — `/en/` | Ana sayfa (yedi bölüm) |
+| `/tr/hakkimizda/` — `/en/about/` | Hakkımızda + ekip |
+| `/` | `/tr/`'ye yönlendirir |
 
 Yayında: <https://clear-cart.vercel.app>
 
@@ -35,6 +43,10 @@ Sayfadaki **hiçbir metin bileşenlerin içine yazılmaz.** Tamamı şu iki dosy
 
 İki dosyanın **anahtarları birebir aynı olmak zorundadır.** Birine yeni bir anahtar
 eklerseniz diğerine de ekleyin; eksik anahtar derleme sırasında hata verir.
+
+> **Tek istisna: çevrilmeyen bilgiler.** E-posta, sosyal hesap adresleri ve ekip isimleri
+> `src/config.ts` içindedir. Bunlar dile göre değişmediği için iki JSON'a kopyalanmaları
+> gereksiz tekrar ve ayrışma riski olurdu.
 
 Anahtar parite kontrolü:
 
@@ -79,6 +91,37 @@ Bu yüzden `public/` değil `src/` altında olmaları gerekir.
    galerideki görseller `lazy`.
 
 Kutu stili `src/styles/global.css` içindeki `.screen-frame` sınıfındadır.
+
+---
+
+## Ekip (Hakkımızda sayfası)
+
+Ekip iki parçadan oluşur ve **ikisi ayrı yerde durur:**
+
+| Ne | Nerede | Neden |
+|---|---|---|
+| İsimler | `src/config.ts` → `SITE.team` | İsimler çevrilmez; iki JSON'a yazılsalardı bir düzeltme iki dosya değiştirmeyi gerektirirdi |
+| Fotoğraflar | `src/img/team/` + `About.astro` → `photos` | `astro:assets` görselleri koddan import edilmek zorundadır |
+
+> **Sıra kuralı:** `SITE.team` ile `About.astro`'daki `photos` dizisi **aynı sırada**
+> olmalıdır. Birinde sırayı değiştirip diğerinde değiştirmezseniz fotoğraf yanlış isme
+> düşer — ve build bunu **yakalamaz**, sessizce yanlış sayfa yayınlanır.
+
+**Kişi eklemek / değiştirmek:**
+
+1. Fotoğrafı `src/img/team/` içine koyun. **Kare (1:1)** olması idealdir; değilse
+   `object-fit: cover` kenarlarından kırpar.
+2. `About.astro`'da import edip `photos` dizisine ekleyin.
+3. `src/config.ts` → `SITE.team` dizisine ismi **aynı sıraya** yazın.
+4. Başlık ve giriş metni `src/i18n/*.json` → `about` altındadır (iki dilde de).
+
+Fotoğraflar `.avatar-frame` içinde yuvarlak gösterilir. `alt=""` bilinçlidir: isim hemen
+altta yazdığı için fotoğraf dekoratiftir, ekran okuyucu iki kez okumaz.
+
+`<Image />` çağrısında **`widths` değil `densities` kullanın.** Daire sabit 160px olduğu
+için `width={160} height={160} densities={[1, 2]}` doğrudur. `widths` verirseniz Astro
+`src` yedeği olarak orijinal boyutu üretir — 3000px'lik bir fotoğrafta bu, hiç
+kullanılmayan yüzlerce KB demektir.
 
 ---
 
@@ -184,12 +227,52 @@ Hepsi tek dosyada: **`src/config.ts`**. Hiçbiri bileşenlerin içine sabit yaz�
 | `instagram`    | `instagram.com/clear_cart`        | Hesap adı değişirse                    |
 | `linkedin`     | `linkedin.com/company/clear1cart` | Sayfa adresi değişirse                 |
 | `formEndpoint` | `formspree.io/f/mzepkbew`         | Formspree formu değişirse              |
+| `team`         | Üç kişi                           | Ekip değişirse (yukarıdaki bölüme bakın) |
 
 `siteUrl` boş bırakılırsa `canonical`, `hreflang`, `og:url` ve `sitemap.xml`
 **hiç üretilmez** — yanlış alan adı vermektense hiç vermemek tercih edilmiştir.
 
 Gerçek ekran görüntüleri ve hero mockup’ı eklendi (yukarıdaki bölüme bakın).
 Logo ve favicon `src/img/clear_cart_logo.png` dosyasından üretilmiş durumda.
+
+---
+
+## Yeni sayfa eklemek
+
+`src/pages/` içine dosya koymak adres oluşturur; ama alt sayfalarda **üç şeyi elle
+vermeniz gerekir**, yoksa sessizce yanlış metadata üretilir (build hata vermez):
+
+```astro
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { aboutPath, useTranslations } from '../../i18n/ui.ts';
+
+const lang = 'tr' as const;
+const t = useTranslations(lang);
+const paths = { tr: aboutPath('tr'), en: aboutPath('en') };
+---
+
+<BaseLayout
+  lang={lang}
+  paths={paths}
+  title={t('about.metaTitle')}
+  description={t('about.metaDescription')}
+>
+```
+
+| Prop | Vermezseniz ne olur |
+| --- | --- |
+| `paths` | `canonical`, `hreflang` ve `og:url` dilin **kökünü** gösterir. Header'daki dil değiştirici de ana sayfaya atar. |
+| `title` | Sayfa, ana sayfanın `<title>`'ını alır |
+| `description` | Aynısı açıklama için |
+
+Sayfa yolu iki dilde farklıysa (`hakkimizda` / `about`) `src/i18n/ui.ts` içindeki
+`aboutPath()` kalıbını kopyalayın — slug'ları `Record<Lang, string>` ile tutun ki bir
+dil eklendiğinde TypeScript eksik slug'ı bildirsin.
+
+Bölüm çapaları **çevrilmez** ve `Header.astro` bunları `langPath(lang)` ile mutlak yazar
+(`/tr/#ozellikler`), böylece alt sayfalardan tıklanınca ana sayfaya gidip doğru bölüme
+kayarlar. Ana sayfada davranış değişmez.
 
 ---
 
