@@ -20,10 +20,14 @@ export const SITE = {
    * değiştirirseniz orada da değiştirin — yoksa fotoğraf yanlış isme düşer
    * ve build bunu yakalamaz.
    */
+
+  //`key`, About.astro içindeki `photos` nesnesinin anahtarlarından biri olmalıdır;
+  //fotoğraf bu anahtarla bulunur. Eşleşmeyen bir anahtar yazılırsa About.astro
+  //build'i kişinin adını vererek düşürür (ui.ts'teki t() ile aynı mantık).
   team: [
-    { name: 'Ahmet Talha Yaman' },
-    { name: 'Aslınur Bakmaz' },
-    { name: 'Tolga Duy' },
+    { key: 'ahmet', name: 'Ahmet Talha Yaman' },
+    { key: 'asli', name: 'Aslınur Bakmaz' },
+    { key: 'tolga', name: 'Tolga Duy' },
   ],
 
   /**

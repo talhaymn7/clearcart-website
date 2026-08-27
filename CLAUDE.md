@@ -56,9 +56,14 @@ Diziler de JSON'da tutulur (`problem.cards`, `screens.items` gibi) ve bileşende
 Adres, e-posta, sosyal hesap, form endpoint'i ve ekip isimleri yalnızca `src/config.ts`
 içindedir; bileşenlere sabit yazılmaz. Ekip isimleri (`SITE.team`) bilerek i18n'de değil
 burada durur: isimler çevrilmez, iki JSON'a yazılsalardı bir düzeltme iki dosya
-değiştirmeyi gerektirirdi. **`SITE.team` sırası `About.astro` içindeki `photos` dizisiyle
-eşleşmek zorundadır** (`Screenshots.astro`'daki `sources`/`screens.items` kuralının aynısı);
-sıra kayarsa fotoğraf yanlış isme düşer ve build bunu yakalamaz.
+değiştirmeyi gerektirirdi.
+
+Her kişinin `key` alanı, `About.astro` içindeki `photos` **nesnesinin** anahtarlarından
+biri olmalıdır; fotoğraf bu anahtarla bulunur. `About.astro`'daki bekçi döngüsü eşleşmeyen
+anahtarda **throw eder**, yani build kişinin adını vererek düşer — `t()`'nin eksik i18n
+anahtarında yaptığının aynısı. **Sıra önemsizdir**, dizi serbestçe yeniden dizilebilir.
+
+
 
 Metadata üretimi bu değerlere **koşulludur**:
 

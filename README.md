@@ -103,16 +103,30 @@ Ekip iki parçadan oluşur ve **ikisi ayrı yerde durur:**
 | İsimler | `src/config.ts` → `SITE.team` | İsimler çevrilmez; iki JSON'a yazılsalardı bir düzeltme iki dosya değiştirmeyi gerektirirdi |
 | Fotoğraflar | `src/img/team/` + `About.astro` → `photos` | `astro:assets` görselleri koddan import edilmek zorundadır |
 
-> **Sıra kuralı:** `SITE.team` ile `About.astro`'daki `photos` dizisi **aynı sırada**
-> olmalıdır. Birinde sırayı değiştirip diğerinde değiştirmezseniz fotoğraf yanlış isme
-> düşer — ve build bunu **yakalamaz**, sessizce yanlış sayfa yayınlanır.
+İkisi **`key` alanıyla** birbirine bağlanır — sıra ile değil:
+
+```ts
+// config.ts
+{ key: 'tolga', name: 'Tolga Duy' }
+
+// About.astro
+const photos = { ahmet, asli, tolga };
+//                            └── config'teki key bunu bulur
+```
+
+> **Yanlış anahtar build'i düşürür.** `About.astro` içindeki bekçi döngüsü her `key`'in
+> `photos` nesnesinde karşılığı olduğunu doğrular; yoksa kişinin adını vererek hata
+> fırlatır (`ui.ts`'teki `t()` ile aynı mantık). **Sıra önemsizdir** — `SITE.team`
+> dizisini istediğiniz gibi yeniden dizebilirsiniz, yalnızca ekrandaki sıra değişir.
 
 **Kişi eklemek / değiştirmek:**
 
 1. Fotoğrafı `src/img/team/` içine koyun. **Kare (1:1)** olması idealdir; değilse
    `object-fit: cover` kenarlarından kırpar.
-2. `About.astro`'da import edip `photos` dizisine ekleyin.
-3. `src/config.ts` → `SITE.team` dizisine ismi **aynı sıraya** yazın.
+2. `About.astro`'da import edip `photos` **nesnesine** ekleyin. Değişken adı anahtar olur:
+   `const photos = { ahmet, asli, tolga, yeniKisi };`
+3. `src/config.ts` → `SITE.team` dizisine `{ key: 'yeniKisi', name: '…' }` ekleyin.
+   Anahtar 2. adımdaki değişken adıyla birebir aynı olmalı.
 4. Başlık ve giriş metni `src/i18n/*.json` → `about` altındadır (iki dilde de).
 
 Fotoğraflar `.avatar-frame` içinde yuvarlak gösterilir. `alt=""` bilinçlidir: isim hemen

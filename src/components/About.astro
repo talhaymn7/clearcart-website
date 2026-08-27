@@ -16,8 +16,16 @@ const t = useTranslations(lang);
 // İsimler çevrilmediği için i18n'den değil config'ten gelir.
 const team = SITE.team;
 
-// Sıra SITE.team ile eşleşmek zorunda (Screenshots.astro'daki ile aynı kural).
-const photos = [ahmet, asli, tolga];
+const photos = {ahmet, asli, tolga};
+
+// Anahtar bulunamazsa build'i düşür — ui.ts'teki t()'nin yaptığının aynısı.
+for (const member of team) {
+  if (!(member.key in photos)) {
+    throw new Error(
+      `[team] "${member.name}" için "${member.key}" fotoğrafı About.astro içinde tanımlı değil.`
+    );
+  }
+}
 ---
 
 <section class="section">
@@ -29,7 +37,7 @@ const photos = [ahmet, asli, tolga];
 
     <ul class="mt-8 grid gap-8 sm:grid-cols-3">
       {
-        team.map((member, index) => (
+        team.map((member) => (
           <li class="text-center">
             {/* alt="" bilinçli: isim hemen altta metin olarak yazdığı için
                 fotoğraf dekoratiftir. Logo.astro'daki gerekçenin aynısı. */}
@@ -39,7 +47,7 @@ const photos = [ahmet, asli, tolga];
                   src yedeği de 160px olur. widths verilseydi Astro src için
                   orijinali (2879px, ~285 kB) yazardı. */}
               <Image
-                src={photos[index]}
+                src={photos[member.key]}
                 alt=""
                 width={160}
                 height={160}
