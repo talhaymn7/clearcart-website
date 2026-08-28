@@ -16,10 +16,11 @@ export default defineConfig({
   // siteUrl boşken site/sitemap üretilmez — yanlış alan adı vermektense hiç vermemek daha iyi.
   site: hasSiteUrl ? siteOrigin : undefined,
   base,
-  // Sitemap'e yalnızca gerçek dil sayfaları girer. Kök adres sadece /tr/ adresine
-  // yönlendiren noindex bir sayfadır, dizine eklenmesi istenmez.
+  // Sitemap'e bir dil klasörü altındaki her sayfa girer (/tr/, /tr/hakkimizda/ …).
+  // Kök adres dışarıda kalır: sadece /tr/ adresine yönlendiren noindex bir sayfadır,
+  // dizine eklenmesi istenmez. Sondaki $ bilerek yok — olsaydı alt sayfalar elenirdi.
   integrations: hasSiteUrl
-    ? [sitemap({ filter: (page) => /\/(tr|en)\/$/.test(new URL(page).pathname) })]
+    ? [sitemap({ filter: (page) => /\/(tr|en)\//.test(new URL(page).pathname) })]
     : [],
   vite: {
     plugins: [tailwindcss()],

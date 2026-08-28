@@ -120,8 +120,16 @@
     "instagramLabel": "Instagram",
     "linkedinLabel": "LinkedIn"
   },
+  "about": {
+    "metaTitle": "About us — Clear Cart",
+    "metaDescription": "Who builds Clear Cart, and why.",
+    "heading": "About us",
+    "intro": "We built Clear Cart to take some of the daily weight out of living with an allergy. We're a small team — the product came out of our own need, and that's still how we build it.",
+    "teamHeading": "The team"
+  },
   "footer": {
     "disclaimer": "Clear Cart is a helper, not medical advice. If you have a serious allergy, always check the product label.",
-    "rights": "© 2026 Clear Cart. All rights reserved."
+    "rights": "© 2026 Clear Cart. All rights reserved.",
+    "about": "About us"
   }
 }

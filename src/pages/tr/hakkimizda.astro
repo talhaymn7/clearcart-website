@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import About from '../../components/About.astro';
+import { aboutPath, useTranslations } from '../../i18n/ui.ts';
+
+const lang = 'tr' as const;
+const t = useTranslations(lang);
+
+// Alt sayfa olduğu için kendi yolunu bildirir; yoksa canonical dilin kökünü gösterir.
+const paths = { tr: aboutPath('tr'), en: aboutPath('en') };
+---
+
+<BaseLayout
+  lang={lang}
+  paths={paths}
+  title={t('about.metaTitle')}
+  description={t('about.metaDescription')}
+>
+  <About lang={lang} />
+</BaseLayout>

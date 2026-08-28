@@ -50,3 +50,13 @@ export function withBase(path = ''): string {
 export function langPath(lang: Lang): string {
   return withBase(`${lang}/`);
 }
+
+/**
+ * Hakkımızda sayfasının yolu. Bölüm çapalarının aksine sayfa adresi çevrilir,
+ * çünkü adres çubuğunda İngilizce ziyaretçiye görünür: /tr/hakkimizda/ — /en/about/
+ */
+const aboutSlugs: Record<Lang, string> = { tr: 'hakkimizda', en: 'about' };
+
+export function aboutPath(lang: Lang): string {
+  return withBase(`${lang}/${aboutSlugs[lang]}/`);
+}

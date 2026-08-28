@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import { SITE } from '../config.ts';
+import { useTranslations, type Lang } from '../i18n/ui.ts';
+import ahmet from '../img/team/ahmet.jpg';
+import asli from '../img/team/aslı.jpg';
+import tolga from '../img/team/tolga.jpg';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// İsimler çevrilmediği için i18n'den değil config'ten gelir.
+const team = SITE.team;
+
+const photos = {ahmet, asli, tolga};
+
+// Anahtar bulunamazsa build'i düşür — ui.ts'teki t()'nin yaptığının aynısı.
+for (const member of team) {
+  if (!(member.key in photos)) {
+    throw new Error(
+      `[team] "${member.name}" için "${member.key}" fotoğrafı About.astro içinde tanımlı değil.`
+    );
+  }
+}
+---
+
+<section class="section">
+  <div class="wrap">
+    <h1 class="measure text-4xl font-bold sm:text-5xl">{t('about.heading')}</h1>
+    <p class="measure mt-5 text-lg text-ink-soft">{t('about.intro')}</p>
+
+    <h2 class="mt-14 text-2xl font-bold sm:text-3xl">{t('about.teamHeading')}</h2>
+
+    <ul class="mt-8 grid gap-8 sm:grid-cols-3">
+      {
+        team.map((member) => (
+          <li class="text-center">
+            {/* alt="" bilinçli: isim hemen altta metin olarak yazdığı için
+                fotoğraf dekoratiftir. Logo.astro'daki gerekçenin aynısı. */}
+            <div class="avatar-frame mx-auto w-full max-w-[10rem]">
+              {/* Daire her zaman 160px (max-w-[10rem]). Sabit boyut olduğu için
+                  widths+sizes değil densities kullanılır: 1x ve 2x üretilir,
+                  src yedeği de 160px olur. widths verilseydi Astro src için
+                  orijinali (2879px, ~285 kB) yazardı. */}
+              <Image
+                src={photos[member.key]}
+                alt=""
+                width={160}
+                height={160}
+                densities={[1, 2]}
+                loading="lazy"
+              />
+            </div>
+
+            <p class="mt-4 font-semibold text-brand-deep">{member.name}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

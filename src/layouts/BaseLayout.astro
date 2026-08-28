@@ -3,28 +3,42 @@ import fs from 'node:fs';
 import path from 'node:path';
 import '../styles/global.css';
 import { SITE, hasSiteUrl, siteOrigin } from '../config.ts';
-import { useTranslations, withBase, type Lang } from '../i18n/ui.ts';
+import { useTranslations, langPath, withBase, type Lang } from '../i18n/ui.ts';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 interface Props {
   lang: Lang;
+  /**
+   * Bu sayfanın her dildeki yolu. Verilmezse dil ana sayfaları varsayılır.
+   * Alt sayfalar kendi yollarını geçirmek zorundadır, aksi halde canonical
+   * ve hreflang yanlış adresi (dilin kökünü) gösterir.
+   */
+  paths?: Record<Lang, string>;
+  /** Sayfaya özel başlık/açıklama. Verilmezse ana sayfanınki kullanılır. */
+  title?: string;
+  description?: string;
 }
 
-const { lang } = Astro.props;
+const { lang, paths, title, description } = Astro.props;
 const t = useTranslations(lang);
+
+const pagePaths = paths ?? { tr: langPath('tr'), en: langPath('en') };
+const pageTitle = title ?? t('meta.title');
+const pageDescription = description ?? t('meta.description');
 
 // Sosyal medya görseli yalnızca PNG gerçekten üretildiyse duyurulur (botlar SVG işlemez).
 const ogImageExists = fs.existsSync(path.join(process.cwd(), 'public', 'og-image.png'));
 const ogImage = hasSiteUrl && ogImageExists ? `${siteOrigin}${withBase('og-image.png')}` : null;
 
 // siteUrl boşken canonical / hreflang üretilmez.
-const canonical = hasSiteUrl ? `${siteOrigin}${withBase(`${lang}/`)}` : null;
+// pagePaths değerleri withBase'den geçmiş olarak gelir, burada sadece origin eklenir.
+const canonical = hasSiteUrl ? `${siteOrigin}${pagePaths[lang]}` : null;
 const alternates = hasSiteUrl
   ? [
-      { hreflang: 'tr', href: `${siteOrigin}${withBase('tr/')}` },
-      { hreflang: 'en', href: `${siteOrigin}${withBase('en/')}` },
-      { hreflang: 'x-default', href: `${siteOrigin}${withBase('tr/')}` },
+      { hreflang: 'tr', href: `${siteOrigin}${pagePaths.tr}` },
+      { hreflang: 'en', href: `${siteOrigin}${pagePaths.en}` },
+      { hreflang: 'x-default', href: `${siteOrigin}${pagePaths.tr}` },
     ]
   : [];
 ---
@@ -38,8 +52,8 @@ const alternates = hasSiteUrl
     <meta name="theme-color" content="#674879" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{t('meta.title')}</title>
-    <meta name="description" content={t('meta.description')} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
 
     <link rel="icon" type="image/png" sizes="32x32" href={withBase('favicon-32.png')} />
     <link rel="icon" type="image/png" sizes="16x16" href={withBase('favicon-16.png')} />
@@ -51,8 +65,8 @@ const alternates = hasSiteUrl
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_US'} />
-    <meta property="og:title" content={t('meta.title')} />
-    <meta property="og:description" content={t('meta.description')} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
     {canonical && <meta property="og:url" content={canonical} />}
     {
       ogImage && (
@@ -66,8 +80,8 @@ const alternates = hasSiteUrl
     }
 
     <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
-    <meta name="twitter:title" content={t('meta.title')} />
-    <meta name="twitter:description" content={t('meta.description')} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
 
@@ -76,7 +90,7 @@ const alternates = hasSiteUrl
       {t('nav.skipToContent')}
     </a>
 
-    <Header lang={lang} />
+    <Header lang={lang} paths={pagePaths} />
 
     <main id="main">
       <slot />

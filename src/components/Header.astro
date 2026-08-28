@@ -4,16 +4,29 @@ import Logo from './Logo.astro';
 
 interface Props {
   lang: Lang;
+  /**
+   * Bulunulan sayfanın her dildeki yolu; dil değiştirici bunu kullanır.
+   * Verilmezse dil ana sayfaları varsayılır. BaseLayout kendi pagePaths'ini geçirir,
+   * böylece alt sayfada dil değiştirmek ana sayfaya atmaz.
+   */
+  paths?: Record<Lang, string>;
 }
 
-const { lang } = Astro.props;
+const { lang, paths } = Astro.props;
 const t = useTranslations(lang);
 
+const home = langPath(lang);
+const langPaths = paths ?? { tr: langPath('tr'), en: langPath('en') };
+
+// Çapalar bölümlerin bulunduğu ana sayfaya mutlak olarak bağlanır. Header her
+// sayfada göründüğü için düz '#ozellikler' yazılsaydı alt sayfalarda ölü link olurdu.
 const sectionLinks = [
-  { href: '#nasil-calisir', label: t('nav.links.how') },
-  { href: '#ozellikler', label: t('nav.links.features') },
-  { href: '#iletisim', label: t('nav.links.contact') },
+  { href: `${home}#nasil-calisir`, label: t('nav.links.how') },
+  { href: `${home}#ozellikler`, label: t('nav.links.features') },
+  { href: `${home}#iletisim`, label: t('nav.links.contact') },
 ];
+
+const waitlistHref = `${home}#bekleme-listesi`;
 
 const langCodes = Object.keys(languages) as Lang[];
 ---
@@ -50,7 +63,7 @@ const langCodes = Object.keys(languages) as Lang[];
         {
           langCodes.map((code) => (
             <a
-              href={langPath(code)}
+              href={langPaths[code]}
               hreflang={code}
               aria-current={code === lang ? 'true' : undefined}
               class:list={[
@@ -64,7 +77,7 @@ const langCodes = Object.keys(languages) as Lang[];
         }
       </nav>
 
-      <a href="#bekleme-listesi" class="btn btn-primary hidden px-4 py-2 text-sm sm:inline-flex">
+      <a href={waitlistHref} class="btn btn-primary hidden px-4 py-2 text-sm sm:inline-flex">
         {t('nav.waitlist')}
       </a>
 
@@ -103,7 +116,7 @@ const langCodes = Object.keys(languages) as Lang[];
           </a>
         ))
       }
-      <a href="#bekleme-listesi" class="btn btn-primary mt-2">{t('nav.waitlist')}</a>
+      <a href={waitlistHref} class="btn btn-primary mt-2">{t('nav.waitlist')}</a>
     </nav>
   </div>
 </header>
