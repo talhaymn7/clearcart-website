@@ -1,5 +1,12 @@
 ---
-import { useTranslations, langPath, languages, type Lang } from '../i18n/ui.ts';
+import {
+  useTranslations,
+  langPath,
+  aboutPath,
+  visionPath,
+  languages,
+  type Lang,
+} from '../i18n/ui.ts';
 import Logo from './Logo.astro';
 
 interface Props {
@@ -18,11 +25,14 @@ const t = useTranslations(lang);
 const home = langPath(lang);
 const langPaths = paths ?? { tr: langPath('tr'), en: langPath('en') };
 
-// Çapalar bölümlerin bulunduğu ana sayfaya mutlak olarak bağlanır. Header her
-// sayfada göründüğü için düz '#ozellikler' yazılsaydı alt sayfalarda ölü link olurdu.
+// Menüde iki tür link var: ana sayfadaki bölümlere giden çapalar ve alt sayfalar.
+// Çapalar ana sayfaya mutlak olarak bağlanır — Header her sayfada göründüğü için
+// düz '#ozellikler' yazılsaydı alt sayfalarda ölü link olurdu.
 const sectionLinks = [
   { href: `${home}#nasil-calisir`, label: t('nav.links.how') },
   { href: `${home}#ozellikler`, label: t('nav.links.features') },
+  { href: aboutPath(lang), label: t('nav.links.about') },
+  { href: visionPath(lang), label: t('nav.links.vision') },
   { href: `${home}#iletisim`, label: t('nav.links.contact') },
 ];
 
@@ -45,10 +55,10 @@ const langCodes = Object.keys(languages) as Lang[];
     </a>
 
     <div class="flex items-center gap-2 sm:gap-4">
-      <nav class="hidden items-center gap-5 md:flex" aria-label={t('nav.primaryLabel')}>
+      <nav class="hidden items-center gap-5 lg:flex" aria-label={t('nav.primaryLabel')}>
         {
           sectionLinks.map((link) => (
-            <a href={link.href} class="text-sm font-medium text-ink-soft hover:text-brand-deep">
+            <a href={link.href} class="whitespace-nowrap text-sm font-medium text-ink-soft hover:text-brand-deep">
               {link.label}
             </a>
           ))
@@ -84,7 +94,7 @@ const langCodes = Object.keys(languages) as Lang[];
       <button
         type="button"
         id="menu-toggle"
-        class="inline-flex items-center justify-center rounded-full border border-brand-deep/50 p-2 text-brand-deep md:hidden"
+        class="inline-flex items-center justify-center rounded-full border border-brand-deep/50 p-2 text-brand-deep lg:hidden"
         aria-controls="mobile-menu"
         aria-expanded="false"
         aria-label={t('nav.menuOpen')}
@@ -107,7 +117,7 @@ const langCodes = Object.keys(languages) as Lang[];
     </div>
   </div>
 
-  <div id="mobile-menu" class="wrap hidden border-t border-brand/40 pb-4 md:hidden">
+  <div id="mobile-menu" class="wrap hidden border-t border-brand/40 pb-4 lg:hidden">
     <nav class="flex flex-col gap-1 pt-3" aria-label={t('nav.primaryLabel')}>
       {
         sectionLinks.map((link) => (

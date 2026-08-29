@@ -96,14 +96,16 @@ Kutu stili `src/styles/global.css` içindeki `.screen-frame` sınıfındadır.
 
 ## Ekip (Hakkımızda sayfası)
 
-Ekip iki parçadan oluşur ve **ikisi ayrı yerde durur:**
+Her kişinin dört parçası var ve **üç ayrı yerde dururlar:**
 
 | Ne | Nerede | Neden |
 |---|---|---|
-| İsimler | `src/config.ts` → `SITE.team` | İsimler çevrilmez; iki JSON'a yazılsalardı bir düzeltme iki dosya değiştirmeyi gerektirirdi |
-| Fotoğraflar | `src/img/team/` + `About.astro` → `photos` | `astro:assets` görselleri koddan import edilmek zorundadır |
+| İsim | `src/config.ts` → `SITE.team` | Çevrilmez; iki JSON'a yazılsaydı bir düzeltme iki dosya değiştirmeyi gerektirirdi |
+| Fotoğraf | `src/img/team/` + `About.astro` → `photos` | `astro:assets` görselleri koddan import edilmek zorundadır |
+| Rol | `tr.json` + `en.json` → `about.team.<key>.role` | **Çevrilir** (ör. "AI Geliştirme" / "AI Developer") |
+| Tanıtım | `tr.json` + `en.json` → `about.team.<key>.bio` | **Çevrilir** |
 
-İkisi **`key` alanıyla** birbirine bağlanır — sıra ile değil:
+Üçünü birbirine bağlayan şey **`key` alanı** — sıra değil:
 
 ```ts
 // config.ts
@@ -111,8 +113,16 @@ Ekip iki parçadan oluşur ve **ikisi ayrı yerde durur:**
 
 // About.astro
 const photos = { ahmet, asli, tolga };
-//                            └── config'teki key bunu bulur
+//                            └── key bunu bulur
+
+// tr.json / en.json
+"about": { "team": { "tolga": { "role": "…", "bio": "…" } } }
+//                     └── aynı key
 ```
+
+> **Rol ve tanıtım boş bırakılabilir.** `""` yazarsanız o satır — `bio` için üstündeki
+> ince çizgiyle birlikte — kartta hiç basılmaz. İçerik hazır değilken sayfayı
+> köşeli parantezli yer tutucularla yayınlamamak için bu yolu kullanın.
 
 > **Yanlış anahtar build'i düşürür.** `About.astro` içindeki bekçi döngüsü her `key`'in
 > `photos` nesnesinde karşılığı olduğunu doğrular; yoksa kişinin adını vererek hata
@@ -127,15 +137,19 @@ const photos = { ahmet, asli, tolga };
    `const photos = { ahmet, asli, tolga, yeniKisi };`
 3. `src/config.ts` → `SITE.team` dizisine `{ key: 'yeniKisi', name: '…' }` ekleyin.
    Anahtar 2. adımdaki değişken adıyla birebir aynı olmalı.
-4. Başlık ve giriş metni `src/i18n/*.json` → `about` altındadır (iki dilde de).
+4. **İki JSON dosyasına da** `about.team.yeniKisi` ekleyin: `{ "role": "…", "bio": "…" }`.
+   Birinde unutursanız build durur ve eksik anahtarı adıyla söyler.
+5. Başlık ve giriş metni `src/i18n/*.json` → `about` altındadır (iki dilde de).
 
-Fotoğraflar `.avatar-frame` içinde yuvarlak gösterilir. `alt=""` bilinçlidir: isim hemen
-altta yazdığı için fotoğraf dekoratiftir, ekran okuyucu iki kez okumaz.
+Kartlar sayfanın geri kalanındaki `.card` sınıfını kullanır; fotoğraflar `.avatar-frame`
+içinde yuvarlak gösterilir. `alt=""` bilinçlidir: isim hemen altta yazdığı için fotoğraf
+dekoratiftir, ekran okuyucu iki kez okumaz.
 
-`<Image />` çağrısında **`widths` değil `densities` kullanın.** Daire sabit 160px olduğu
-için `width={160} height={160} densities={[1, 2]}` doğrudur. `widths` verirseniz Astro
+`<Image />` çağrısında **`widths` değil `densities` kullanın.** Daire sabit 128px olduğu
+için `width={128} height={128} densities={[1, 2]}` doğrudur. `widths` verirseniz Astro
 `src` yedeği olarak orijinal boyutu üretir — 3000px'lik bir fotoğrafta bu, hiç
-kullanılmayan yüzlerce KB demektir.
+kullanılmayan yüzlerce KB demektir. Daire boyutunu değiştirirken `About.astro`'daki
+`w-32` sınıfı ile `<Image>`'ın `width`/`height` değerlerini birlikte güncelleyin.
 
 ---
 

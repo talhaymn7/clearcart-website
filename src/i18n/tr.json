@@ -15,7 +15,9 @@
     "links": {
       "how": "Nasıl çalışır",
       "features": "Özellikler",
-      "contact": "İletişim"
+      "contact": "İletişim",
+      "about": "Hakkımızda",
+      "vision": "Vizyon ve Misyon"
     },
     "primaryLabel": "Ana menü",
     "continue": "Türkçe sayfaya devam et"
@@ -125,11 +127,48 @@
     "metaDescription": "Clear Cart'ı kimlerin, neden geliştirdiğini anlatan sayfa.",
     "heading": "Hakkımızda",
     "intro": "Clear Cart'ı, alerjiyle yaşamanın günlük yükünü azaltmak için kurduk. Küçük bir ekibiz; ürünü kendi ihtiyacımızdan doğurduk ve hâlâ öyle geliştiriyoruz.",
-    "teamHeading": "Ekip"
+    "teamHeading": "Ekip",
+    "team": {
+      "ahmet": {
+        "role": "CTO",
+        "bio": "Uygulamanın teknik tarafını kuruyor; ürün tanımadan alerjen eşleştirmesine kadar altyapı ile ilgileniyor."
+      },
+      "asli": {
+        "role": "CEO",
+        "bio": "Clear Cart'ın yönünü belirliyor; ürünün kime ve neden gerektiği sorusunu takip ediyor."
+      },
+      "tolga": {
+        "role": "AI Geliştirme",
+        "bio": "Ürün tanıma modelleri üzerinde çalışıyor; fotoğraftan doğru ürüne ulaşan kısmı ile ilgileniyor."
+      }
+    }
+  },
+  "vision": {
+    "metaTitle": "Vizyon ve Misyon — Clear Cart",
+    "metaDescription": "Clear Cart'ın neyi hedeflediği, bugün ne yaptığı ve hangi ilkelerle geliştirildiği.",
+    "heading": "Vizyon ve Misyon",
+    "visionHeading": "Vizyonumuz",
+    "visionBody": "Bir gün kimsenin market rafında paketi ters çevirip küçük puntoları hecelemek zorunda kalmadığı bir alışveriş hayal ediyoruz. Alerjiyle yaşamak zaten yeterince dikkat istiyor; ürünün içinde ne olduğunu öğrenmek bu yükün en kolay kısmı olmalı.",
+    "missionHeading": "Misyonumuz",
+    "missionBody": "Elindeki ürünü saniyeler içinde tanıyan ve içeriğini senin alerji profilinle karşılaştıran bir araç yapıyoruz. Amacımız etiketin yerini almak değil; raf önünde geçirdiğin zamanı kısaltmak ve gözden kaçabilecek bir alerjeni sana hatırlatmak.",
+    "valuesHeading": "Değerlerimiz",
+    "values": [
+      {
+        "title": "Emin olmadığımızda söyleriz.",
+        "body": "Bir ürünü tanıyamadıysak ya da içerik bilgisi eksikse bunu gizlemek yerine belirtiriz. Son söz her zaman ürünün kendi etiketindedir."
+      },
+      {
+        "title": "Sade kalır.",
+        "body": "Uygulama tek bir işi iyi yapsın istiyoruz: fotoğrafı çek, cevabı gör. Araya menü, hesap ya da gereksiz adım koymuyoruz."
+      },
+      {
+        "title": "Alerji bilgin sana ait.",
+        "body": "Alerji profili sağlık bilgisidir. Onu reklam için kullanmıyor, üçüncü taraflarla paylaşmıyoruz."
+      }
+    ]
   },
   "footer": {
     "disclaimer": "Clear Cart yardımcı bir araçtır, tıbbi tavsiye yerine geçmez. Ciddi alerjiniz varsa ürün etiketini mutlaka kontrol edin.",
-    "rights": "© 2026 Clear Cart. Tüm hakları saklıdır.",
-    "about": "Hakkımızda"
+    "rights": "© 2026 Clear Cart. Tüm hakları saklıdır."
   }
 }

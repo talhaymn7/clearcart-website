@@ -35,30 +35,49 @@ for (const member of team) {
 
     <h2 class="mt-14 text-2xl font-bold sm:text-3xl">{t('about.teamHeading')}</h2>
 
-    <ul class="mt-8 grid gap-8 sm:grid-cols-3">
+    <ul class="mt-8 grid gap-5 sm:grid-cols-3">
       {
-        team.map((member) => (
-          <li class="text-center">
-            {/* alt="" bilinçli: isim hemen altta metin olarak yazdığı için
-                fotoğraf dekoratiftir. Logo.astro'daki gerekçenin aynısı. */}
-            <div class="avatar-frame mx-auto w-full max-w-[10rem]">
-              {/* Daire her zaman 160px (max-w-[10rem]). Sabit boyut olduğu için
-                  widths+sizes değil densities kullanılır: 1x ve 2x üretilir,
-                  src yedeği de 160px olur. widths verilseydi Astro src için
-                  orijinali (2879px, ~285 kB) yazardı. */}
-              <Image
-                src={photos[member.key]}
-                alt=""
-                width={160}
-                height={160}
-                densities={[1, 2]}
-                loading="lazy"
-              />
-            </div>
+        team.map((member) => {
+          // Rol ve tanıtım çevrilir, o yüzden config'te değil i18n'de; kişiye
+          // aynı `key` ile bağlanır. Anahtar eksikse t() build'i düşürür.
+          const role = t(`about.team.${member.key}.role`);
+          const bio = t(`about.team.${member.key}.bio`);
 
-            <p class="mt-4 font-semibold text-brand-deep">{member.name}</p>
-          </li>
-        ))
+          return (
+            <li class="card flex flex-col items-center text-center">
+              {/* alt="" bilinçli: isim hemen altta metin olarak yazdığı için
+                  fotoğraf dekoratiftir. Logo.astro'daki gerekçenin aynısı. */}
+              <div class="avatar-frame w-32">
+                {/* Daire sabit 128px. Sabit boyut olduğu için widths+sizes değil
+                    densities kullanılır: 1x ve 2x üretilir, src yedeği de 128px
+                    olur. widths verilseydi Astro src için orijinali yazardı. */}
+                <Image
+                  src={photos[member.key]}
+                  alt=""
+                  width={128}
+                  height={128}
+                  densities={[1, 2]}
+                  loading="lazy"
+                />
+              </div>
+
+              <p class="mt-5 text-lg font-semibold text-brand-deep">{member.name}</p>
+
+              {/* Rol ve tanıtım boş bırakılabilir: JSON'da boş metin yazılırsa
+                  o satır hiç basılmaz, kart isimle sade durur. */}
+              {role && (
+                <p class="mt-1 text-sm uppercase tracking-wide text-ink-soft">{role}</p>
+              )}
+
+              {bio && (
+                <>
+                  <div class="mt-4 h-px w-10 bg-brand/70" aria-hidden="true" />
+                  <p class="mt-4 text-ink-soft">{bio}</p>
+                </>
+              )}
+            </li>
+          );
+        })
       }
     </ul>
   </div>
