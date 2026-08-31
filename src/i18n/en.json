@@ -15,7 +15,9 @@
     "links": {
       "how": "How it works",
       "features": "Features",
-      "contact": "Contact"
+      "contact": "Contact",
+      "about": "About us",
+      "vision": "Vision and Mission"
     },
     "primaryLabel": "Main menu",
     "continue": "Continue to the English page"
@@ -125,11 +127,48 @@
     "metaDescription": "Who builds Clear Cart, and why.",
     "heading": "About us",
     "intro": "We built Clear Cart to take some of the daily weight out of living with an allergy. We're a small team — the product came out of our own need, and that's still how we build it.",
-    "teamHeading": "The team"
+    "teamHeading": "The team",
+    "team": {
+      "ahmet": {
+        "role": "CTO",
+        "bio": "Builds the technical side of the app; looks after the infrastructure from product recognition through to allergen matching."
+      },
+      "asli": {
+        "role": "CEO",
+        "bio": "Sets Clear Cart's direction and keeps the team focused on who the product is for, and why."
+      },
+      "tolga": {
+        "role": "AI Developer",
+        "bio": "Works on the product recognition models; looks after the part that gets from a photo to the right product."
+      }
+    }
+  },
+  "vision": {
+    "metaTitle": "Vision and Mission — Clear Cart",
+    "metaDescription": "What Clear Cart is aiming for, what it does today, and the principles we build it on.",
+    "heading": "Vision and Mission",
+    "visionHeading": "Our vision",
+    "visionBody": "We imagine a weekly shop where nobody has to turn a packet over and squint at the fine print. Living with an allergy already takes enough attention; finding out what is inside a product should be the easiest part of that.",
+    "missionHeading": "Our mission",
+    "missionBody": "We are building a tool that recognises the product in your hand in seconds and checks its ingredients against your allergy profile. We are not trying to replace the label — we want to shorten the time you spend in the aisle and catch the allergen you might have missed.",
+    "valuesHeading": "What we value",
+    "values": [
+      {
+        "title": "We say when we are unsure.",
+        "body": "If we cannot identify a product, or the ingredient data is incomplete, we tell you rather than hide it. The label on the product always has the final word."
+      },
+      {
+        "title": "It stays simple.",
+        "body": "We want the app to do one thing well: take the photo, see the answer. No menus, no accounts, no extra steps in between."
+      },
+      {
+        "title": "Your allergy data is yours.",
+        "body": "An allergy profile is health information. We do not use it for advertising and we do not share it with third parties."
+      }
+    ]
   },
   "footer": {
     "disclaimer": "Clear Cart is a helper, not medical advice. If you have a serious allergy, always check the product label.",
-    "rights": "© 2026 Clear Cart. All rights reserved.",
-    "about": "About us"
+    "rights": "© 2026 Clear Cart. All rights reserved."
   }
 }

@@ -1,5 +1,5 @@
 ---
-import { useTranslations, langPath, aboutPath, type Lang } from '../i18n/ui.ts';
+import { useTranslations, langPath, type Lang } from '../i18n/ui.ts';
 import Logo from './Logo.astro';
 
 interface Props {
@@ -19,13 +19,6 @@ const t = useTranslations(lang);
     >
       <Logo class="h-6 w-6" />
       <span class="tracking-tight">Clear Cart</span>
-    </a>
-
-    <a
-      href={aboutPath(lang)}
-      class="w-fit text-sm font-medium text-ink-soft hover:text-brand-deep"
-    >
-      {t('footer.about')}
     </a>
 
     <div class="divider" aria-hidden="true"></div>

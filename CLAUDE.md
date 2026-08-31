@@ -63,6 +63,12 @@ biri olmalıdır; fotoğraf bu anahtarla bulunur. `About.astro`'daki bekçi dön
 anahtarda **throw eder**, yani build kişinin adını vererek düşer — `t()`'nin eksik i18n
 anahtarında yaptığının aynısı. **Sıra önemsizdir**, dizi serbestçe yeniden dizilebilir.
 
+Aynı `key` kişinin çevrilen metinlerini de bulur: `about.team.<key>.role` ve `.bio`
+her iki JSON'da bulunmak zorundadır, yoksa `t()` build'i düşürür. Bölüşüm şudur —
+**`name` çevrilmez → `config.ts`; `role` ve `bio` çevrilir → i18n.** İkisi de boş metin
+(`''`) olabilir: o zaman kartta o satır (ve `bio` için üstündeki çizgi) hiç basılmaz,
+böylece içerik hazır değilken sayfa yer tutucu göstermeden yayınlanabilir.
+
 
 
 Metadata üretimi bu değerlere **koşulludur**:
@@ -130,13 +136,16 @@ görseli `Screenshots.astro`'daki `sources` dizisine eklemek **ve** `screens.ite
 dilde `caption` + `alt` yazmak birlikte gerekir, aksi halde build düşer.
 
 Ekip fotoğrafları `src/img/team/` altındadır ve `.avatar-frame` (`.screen-frame`'in
-yuvarlak kardeşi) içinde gösterilir. `alt=""` bilinçlidir: isim hemen altta metin olarak
-yazdığı için fotoğraf dekoratiftir — `Logo.astro`'daki gerekçenin aynısı.
+yuvarlak kardeşi) içinde, `.card` kutularının tepesinde gösterilir. `alt=""` bilinçlidir:
+isim hemen altta metin olarak yazdığı için fotoğraf dekoratiftir — `Logo.astro`'daki
+gerekçenin aynısı.
 
-**`widths` yerine `densities` kullanılır** ve bu önemlidir: daire her zaman 160px olduğu
-için `<Image width={160} height={160} densities={[1, 2]} />` yazılır. `widths` verilseydi
+**`widths` yerine `densities` kullanılır** ve bu önemlidir: daire sabit 128px olduğu
+için `<Image width={128} height={128} densities={[1, 2]} />` yazılır. `widths` verilseydi
 Astro `src` yedeği için **orijinali** üretirdi — 2879px'lik kaynaklarda bu, kullanılmayan
-~1,2 MB'lık dosya demekti. Sabit boyutlu her görselde bu kurala uyun.
+~1,2 MB'lık dosya demekti. Sabit boyutlu her görselde bu kurala uyun; boyutu değiştirirken
+`About.astro`'daki `w-32` sınıfını ve `<Image>`'ın `width`/`height` değerini birlikte
+güncelleyin.
 
 ### İstemci JavaScript — bilinçli olarak asgari
 

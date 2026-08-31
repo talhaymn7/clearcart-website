@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Vision from '../../components/Vision.astro';
+import { visionPath, useTranslations } from '../../i18n/ui.ts';
+
+const lang = 'tr' as const;
+const t = useTranslations(lang);
+
+// Alt sayfa olduğu için kendi yolunu bildirir; yoksa canonical dilin kökünü gösterir.
+const paths = { tr: visionPath('tr'), en: visionPath('en') };
+---
+
+<BaseLayout
+  lang={lang}
+  paths={paths}
+  title={t('vision.metaTitle')}
+  description={t('vision.metaDescription')}
+>
+  <Vision lang={lang} />
+</BaseLayout>

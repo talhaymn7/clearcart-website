@@ -60,3 +60,10 @@ const aboutSlugs: Record<Lang, string> = { tr: 'hakkimizda', en: 'about' };
 export function aboutPath(lang: Lang): string {
   return withBase(`${lang}/${aboutSlugs[lang]}/`);
 }
+
+/** Vizyon-Misyon sayfasının yolu: /tr/vizyon/ — /en/vision/ */
+const visionSlugs: Record<Lang, string> = { tr: 'vizyon', en: 'vision' };
+
+export function visionPath(lang: Lang): string {
+  return withBase(`${lang}/${visionSlugs[lang]}/`);
+}

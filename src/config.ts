@@ -11,19 +11,18 @@ export const SITE = {
 
   /**
    * Hakkımızda sayfasındaki ekip. İsimler çevrilmediği için i18n dosyalarında
-   * değil burada durur — iki JSON'a yazılsaydı bir düzeltme iki dosya
-   * değiştirmeyi gerektirir ve diller ayrışabilirdi.
+   * değil burada durur — iki JSON'a yazılsalardı bir düzeltme iki dosya
+   * değiştirmeyi gerektirir ve diller ayrışabilirdi. Rol ve tanıtım ise çevrilir,
+   * onlar i18n'dedir: `about.team.<key>.role` ve `.bio`.
    * Diziye eleman ekleyip çıkarmak yeterli; About.astro kaç kişi varsa o kadar basar.
    *
-   * DİKKAT: Sıra, About.astro içindeki `photos` dizisinin sırasıyla eşleşmek
-   * zorundadır (Screenshots.astro'daki ile aynı kural). Burada sırayı
-   * değiştirirseniz orada da değiştirin — yoksa fotoğraf yanlış isme düşer
-   * ve build bunu yakalamaz.
+   * `key`, About.astro içindeki `photos` nesnesinin anahtarlarından biri olmalıdır;
+   * fotoğraf bu anahtarla bulunur. Eşleşmeyen bir anahtar yazılırsa About.astro
+   * build'i kişinin adını vererek düşürür (ui.ts'teki t() ile aynı mantık).
+   *
+   * Sıra önemsizdir — diziyi serbestçe yeniden dizebilirsiniz, yalnızca ekrandaki
+   * sıra değişir.
    */
-
-  //`key`, About.astro içindeki `photos` nesnesinin anahtarlarından biri olmalıdır;
-  //fotoğraf bu anahtarla bulunur. Eşleşmeyen bir anahtar yazılırsa About.astro
-  //build'i kişinin adını vererek düşürür (ui.ts'teki t() ile aynı mantık).
   team: [
     { key: 'ahmet', name: 'Ahmet Talha Yaman' },
     { key: 'asli', name: 'Aslınur Bakmaz' },
