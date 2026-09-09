@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Achievements from '../../components/Achievements.astro';
+import { achievementsPath, useTranslations } from '../../i18n/ui.ts';
+
+const lang = 'tr' as const;
+const t = useTranslations(lang);
+
+// Alt sayfa olduğu için kendi yolunu bildirir; yoksa canonical dilin kökünü gösterir.
+const paths = { tr: achievementsPath('tr'), en: achievementsPath('en') };
+---
+
+<BaseLayout
+  lang={lang}
+  paths={paths}
+  title={t('achievements.metaTitle')}
+  description={t('achievements.metaDescription')}
+>
+  <Achievements lang={lang} />
+</BaseLayout>

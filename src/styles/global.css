@@ -190,6 +190,54 @@
     object-fit: cover;
   }
 
+  /*
+    Yatay fotoğraf çerçevesi — .screen-frame ve .avatar-frame'in 16:9 kardeşi.
+    Başarılarımız sayfasındaki etkinlik fotoğrafları için. Görsel gelmeden önce
+    gradyanlı boş kutu olarak durur; <img> konduğunda aynı kutuyu doldurur.
+  */
+  .photo-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-soft);
+    border: 1px solid color-mix(in srgb, var(--brand) 60%, transparent);
+    background-image: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--brand) 28%, var(--surface-card)),
+      var(--surface-card) 60%,
+      color-mix(in srgb, var(--brand) 18%, var(--surface-card))
+    );
+    overflow: hidden;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /*
+    Birden fazla fotoğrafı olan başarılarda çerçevenin içi yatay kaydırılır.
+    Tamamı CSS — JavaScript yok: dokunmatikte parmakla, masaüstünde kaydırma
+    çubuğu ve (tabindex sayesinde) klavye ok tuşlarıyla çalışır.
+    Tek fotoğrafta taşma olmadığı için ne çubuk çıkar ne de kaydırma olur.
+  */
+  .photo-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--brand-deep) 45%, transparent) transparent;
+  }
+
+  .photo-track > * {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+  }
+
   .divider {
     height: 1px;
     background-image: linear-gradient(

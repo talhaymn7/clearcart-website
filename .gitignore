@@ -20,5 +20,7 @@ pnpm-debug.log*
 # yerel oturum / araç durumu
 .claude/
 .remember/
+# ham başarı fotoğrafları — yalnızca kırpılmış türevleri depoya girer
+src/img/achievements/ham/
 # iç doküman — public repoda yayınlanmıyor
 web-sitesi-promtu.md
