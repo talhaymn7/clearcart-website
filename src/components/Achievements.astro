@@ -1,0 +1,130 @@
+---
+import { Image } from 'astro:assets';
+import { useTranslations, type Lang } from '../i18n/ui.ts';
+/*
+  Buradaki .jpg dosyaları ham fotoğraflardan türetilmiştir: 16:9'a kırpılıp
+  1120x630'a indirildiler. Böylece Astro'nun ürettiği en büyük varyant da ekranda
+  gerçekten kullanılan boyutta kalıyor — ham dosya verilseydi src yedeği olarak
+  yüzlerce KB'lık kullanılmayan bir görsel üretilirdi.
+  Ham dosyalar src/img/achievements/ham/ altında arşivde durur; hiçbir yerden
+  import edilmedikleri için Astro onlara dokunmaz ve dist'e girmezler. Kırpmayı
+  yeniden yapmak gerekirse kaynak orada.
+*/
+import jaStartup2025 from '../img/achievements/ja-startup-2025.jpg';
+import empowerMe2025 from '../img/achievements/empower-me-2025.jpg';
+import tusiad2026a from '../img/achievements/tusiad-2026-1.jpg';
+import tusiad2026b from '../img/achievements/tusiad-2026-2.jpg';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+type Item = { key: string; year: string; title: string; org: string; body: string; alt: string[] };
+const items = t<Item[]>('achievements.items');
+
+/*
+  Anahtar JSON'daki `key` ile eşleşir. Fotoğrafı olmayan başarılar boş çerçeve
+  gösterir — o yüzden About.astro'daki gibi bir bekçi döngüsü YOK: şu an eksik
+  fotoğraf ile yanlış yazılmış anahtar birbirinden ayırt edilemez. Beş fotoğraf
+  da tamamlandığında bekçiyi ekleyin, o zaman yanlış anahtar build'i düşürsün.
+*/
+// Bir başarının birden fazla fotoğrafı olabilir; çerçevenin içi o zaman
+// yatay kaydırılabilir bir şeride dönüşür (.photo-track).
+const photos: Record<string, ImageMetadata[]> = {
+  'tusiad-2026': [tusiad2026a, tusiad2026b],
+  'empower-me-2025': [empowerMe2025],
+  'ja-startup-2025': [jaStartup2025],
+};
+
+// Her fotoğrafın kendi alt metni olmalı. Sayılar tutmuyorsa build düşsün —
+// aksi halde bir görsel sessizce alt metinsiz kalır.
+for (const item of items) {
+  const liste = photos[item.key];
+  if (liste && liste.length !== item.alt.length) {
+    throw new Error(
+      `[achievements] "${item.key}": ${liste.length} fotoğraf var ama ${item.alt.length} alt metni yazılmış.`
+    );
+  }
+}
+---
+
+<section class="section">
+  <div class="wrap">
+    <h1 class="measure text-4xl font-bold sm:text-5xl">{t('achievements.heading')}</h1>
+    <p class="measure mt-5 text-lg text-ink-soft">{t('achievements.intro')}</p>
+
+    <ul class="mt-12">
+      {
+        items.map((item, index) => {
+          // Tek/çift sıralarda fotoğraf taraf değiştirir; mobilde sıralama
+          // hep aynı (önce fotoğraf, sonra metin), o yüzden order sadece sm'den itibaren.
+          const fotoSagda = index % 2 === 1;
+
+          return (
+            <li class="grid items-center gap-8 border-t border-brand/45 py-10 last:border-b sm:grid-cols-2 sm:gap-12">
+              <div class:list={['photo-frame', fotoSagda && 'sm:order-2']}>
+                {
+                  photos[item.key] ? (
+                    <div
+                      class="photo-track"
+                      tabindex={photos[item.key].length > 1 ? 0 : undefined}
+                      role={photos[item.key].length > 1 ? 'group' : undefined}
+                      aria-label={
+                        photos[item.key].length > 1 ? t('achievements.galleryLabel') : undefined
+                      }
+                    >
+                      {photos[item.key].map((foto, n) => (
+                        <Image
+                          src={foto}
+                          alt={item.alt[n]}
+                          widths={[400, 560, 1120]}
+                          sizes="(min-width: 640px) 560px, 100vw"
+                          loading="lazy"
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    /* Fotoğrafı henüz gelmemiş başarı: boş çerçeve. */
+                    <svg
+                      class="h-9 w-9 text-brand-deep/40"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <circle cx="9" cy="10.5" r="1.8" />
+                      <path d="M4 17l4.5-4.5 3.5 3.5 3-2.5L20 17" />
+                    </svg>
+                  )
+                }
+              </div>
+
+              <div class:list={[fotoSagda && 'sm:order-1']}>
+                {/* Tarihi henüz bilinmeyen başarıda `year` boş bırakılabilir:
+                    o zaman satır hiç basılmaz, başlık en üste geçer. */}
+                {item.year && (
+                  <p class="text-4xl font-bold leading-none text-brand-deep">{item.year}</p>
+                )}
+                <h2 class:list={['text-2xl font-bold', item.year && 'mt-4']}>{item.title}</h2>
+                {/* `year` gibi `org` da boş bırakılabilir; bilinmeyen bir değeri
+                    uydurmaktansa satırı hiç basmamak doğru. */}
+                {item.org && (
+                  <p class="mt-1.5 text-sm uppercase tracking-wide text-ink-soft">{item.org}</p>
+                )}
+                <p class="measure mt-4 text-ink-soft">{item.body}</p>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>

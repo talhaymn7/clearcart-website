@@ -67,3 +67,10 @@ const visionSlugs: Record<Lang, string> = { tr: 'vizyon', en: 'vision' };
 export function visionPath(lang: Lang): string {
   return withBase(`${lang}/${visionSlugs[lang]}/`);
 }
+
+/** Başarılarımız sayfasının yolu: /tr/basarilarimiz/ — /en/achievements/ */
+const achievementsSlugs: Record<Lang, string> = { tr: 'basarilarimiz', en: 'achievements' };
+
+export function achievementsPath(lang: Lang): string {
+  return withBase(`${lang}/${achievementsSlugs[lang]}/`);
+}

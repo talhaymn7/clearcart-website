@@ -17,7 +17,8 @@
       "features": "Features",
       "contact": "Contact",
       "about": "About us",
-      "vision": "Vision and Mission"
+      "vision": "Vision and Mission",
+      "achievements": "Achievements"
     },
     "primaryLabel": "Main menu",
     "continue": "Continue to the English page"
@@ -166,6 +167,64 @@
         "body": "An allergy profile is health information. We do not use it for advertising and we do not share it with third parties."
       }
     ]
+  },
+  "achievements": {
+    "metaTitle": "Achievements — Clear Cart",
+    "metaDescription": "Competitions the Clear Cart team entered and the results we earned.",
+    "heading": "Achievements",
+    "intro": "Competitions we entered while building Clear Cart, and how we placed.",
+    "items": [
+      {
+        "key": "lidea-2026",
+        "year": "May 2026",
+        "title": "LİDEA Startup Competition — Finalist",
+        "org": "",
+        "body": "Clear Cart reached the final of the LİDEA Girişim Yarışması.",
+        "alt": []
+      },
+      {
+        "key": "tusiad-2026",
+        "year": "February 2026",
+        "title": "TÜSİAD Bu Gençlikte İŞ Var! — Top Fifteen Finalist",
+        "org": "TÜSİAD",
+        "body": "We presented Clear Cart to the jury in TÜSİAD's Bu Gençlikte İŞ Var! entrepreneurship programme and made the final fifteen.",
+        "alt": [
+          "The Clear Cart team in front of the TÜSİAD Bu Gençlikte İŞ Var! backdrop.",
+          "A Clear Cart team member presenting to the jury, with the app shown on the screen behind."
+        ]
+      },
+      {
+        "key": "tusiad-donusumu-baslat",
+        "year": "",
+        "title": "TÜSİAD Dönüşümü Başlat! Business Idea Competition — Second Place",
+        "org": "TÜSİAD",
+        "body": "Clear Cart came second in the Business Idea Competition held under TÜSİAD's Dönüşümü Başlat! programme.",
+        "alt": [
+          "Announcement banner for the TÜSİAD Dönüşümü Başlat! Business Idea Competition, naming Clear Cart as runner-up."
+        ]
+      },
+      {
+        "key": "empower-me-2025",
+        "year": "July 2025",
+        "title": "Empower Me Demo Day — Finalist",
+        "org": "Habitat Derneği",
+        "body": "We pitched Clear Cart on stage at the Empower Me Youth Entrepreneurship Demo Day, supported by Alshaya Group and The Starbucks Foundation, and made the final eight.",
+        "alt": [
+          "A Clear Cart team member presenting on the Empower Me Demo Day stage, with the Clear Cart logo on the screen behind."
+        ]
+      },
+      {
+        "key": "ja-startup-2025",
+        "year": "April 2025",
+        "title": "JA Startup Türkiye Final — Second Place",
+        "org": "Genç Başarı Eğitim Vakfı (JA Türkiye)",
+        "body": "We presented Clear Cart at the Turkish final of the JA Startup programme, run by Genç Başarı Eğitim Vakfı with support from the MetLife Foundation, and came second.",
+        "alt": [
+          "The Clear Cart team holding the JA Startup Türkiye 2025 second-place award board."
+        ]
+      }
+    ],
+    "galleryLabel": "Photo gallery — scroll horizontally"
   },
   "footer": {
     "disclaimer": "Clear Cart is a helper, not medical advice. If you have a serious allergy, always check the product label.",
