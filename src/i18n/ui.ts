@@ -17,7 +17,7 @@ export function isLang(value: string): value is Lang {
 }
 
 /**
- * Nokta ile ayrılmış anahtar yolunu sözlükte arar: t('hero.title').
+ * Nokta ile ayrılmış anahtar yolunu sözlükte arar: t('hero.subtitle').
  * Anahtar bulunamazsa derleme sırasında hata verir — böylece iki dil ayrışmaz.
  */
 export function useTranslations(lang: Lang) {
@@ -63,6 +63,12 @@ export function aboutPath(lang: Lang): string {
 
 /** Vizyon-Misyon sayfasının yolu: /tr/vizyon/ — /en/vision/ */
 const visionSlugs: Record<Lang, string> = { tr: 'vizyon', en: 'vision' };
+
+/** Başarılar sayfasının çevrilmiş yolu; base altında da çalışır. */
+const achievementsSlugs: Record<Lang, string> = { tr: 'basarilarimiz', en: 'achievements' };
+export function achievementsPath(lang: Lang): string {
+  return withBase(`${lang}/${achievementsSlugs[lang]}/`);
+}
 
 export function visionPath(lang: Lang): string {
   return withBase(`${lang}/${visionSlugs[lang]}/`);

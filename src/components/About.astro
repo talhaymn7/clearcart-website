@@ -30,10 +30,12 @@ for (const member of team) {
 
 <section class="section">
   <div class="wrap">
-    <h1 class="measure text-4xl font-bold sm:text-5xl">{t('about.heading')}</h1>
-    <p class="measure mt-5 text-lg text-ink-soft">{t('about.intro')}</p>
+    <div class="page-heading">
+      <h1 class="page-title">{t('about.heading')}</h1>
+      <p class="page-intro">{t('about.intro')}</p>
+    </div>
 
-    <h2 class="mt-14 text-2xl font-bold sm:text-3xl">{t('about.teamHeading')}</h2>
+    <h2 class="section-title">{t('about.teamHeading')}</h2>
 
     <ul class="mt-8 grid gap-5 sm:grid-cols-3">
       {

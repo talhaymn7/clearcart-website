@@ -6,6 +6,7 @@ import { SITE, hasSiteUrl, siteOrigin } from '../config.ts';
 import { useTranslations, langPath, withBase, type Lang } from '../i18n/ui.ts';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
 
 interface Props {
   lang: Lang;
@@ -97,5 +98,6 @@ const alternates = hasSiteUrl
     </main>
 
     <Footer lang={lang} />
+    <ScrollReveal />
   </body>
 </html>

@@ -8,7 +8,7 @@ Sayfalar:
 
 | Adres | İçerik |
 |---|---|
-| `/tr/` — `/en/` | Ana sayfa (yedi bölüm) |
+| `/tr/` — `/en/` | Ana sayfa (altı bölüm) |
 | `/tr/hakkimizda/` — `/en/about/` | Hakkımızda + ekip |
 | `/` | `/tr/`'ye yönlendirir |
 
@@ -58,9 +58,13 @@ node -e "const a=require('./src/i18n/tr.json'),b=require('./src/i18n/en.json');c
 
 ## Ekran görüntüleri
 
-Hero bölümünde `src/img/mockup.png` (kendi mor zeminiyle gelen 3B telefon görseli),
-"Uygulamadan görüntüler" bölümünde ise `src/img/screens/` altındaki üç ekran
-görüntüsü kullanılır: `home.png`, `allergens.png`, `scan-result.png`.
+Ana sayfanın hero'sundaki tarama sonucu kartı **görsel değildir**: `ScanResult.astro`
+içinde HTML ile kurulur, böylece her boyutta net kalır ve metinleri i18n'den (`scan.*`)
+gelir. `src/img/mockup.png` bugün yalnızca Vizyon-Misyon sayfasında kullanılır.
+
+`src/img/screens/` altındaki üç ekran görüntüsü — `home.png`, `allergens.png`,
+`scan-result.png` — "Uygulamadan görüntüler" bölümünde kullanılır; `allergens.png`
+ayrıca "Özellikler" bölümünde büyük olarak gösterilir.
 
 Görseller `src/img/` altında durur ve `astro:assets` içindeki `<Image />` ile
 sunulur; boyutlandırma, WebP dönüşümü ve `srcset` üretimini Astro kendisi yapar.
@@ -69,7 +73,7 @@ Bu yüzden `public/` değil `src/` altında olmaları gerekir.
 **Yeni ekran görüntüsü eklemek / değiştirmek:**
 
 1. Ham görüntüyü `src/img/` içine koyun.
-2. Galeri kutuları `9 / 19.5` oranındadır (`.screen-frame`, `object-fit: cover`).
+2. Galeri kutuları `9 / 19.5` oranındadır (`.phone-frame` + `.phone-screen`, `object-fit: cover`).
    Mevcut üç görüntü bu orana getirilmiştir; farklı oranda bir görsel kenarlarından
    kırpılır. Gerekirse `sharp` ile kırpın ya da kenar pikselini kopyalayarak uzatın:
 
@@ -87,10 +91,12 @@ Bu yüzden `public/` değil `src/` altında olmaları gerekir.
 4. Başlığı ve `alt` metnini **iki dilde** `src/i18n/tr.json` ve `src/i18n/en.json`
    içindeki `screens.items` dizisine yazın (`caption` + `alt`). Anahtar eksikse
    derleme hata verir, böylece iki dil ayrışmaz.
-5. Hero görseli `loading="eager"` ile yüklenir (ilk ekranda görünüyor),
-   galerideki görseller `lazy`.
+5. Görsel sayısı ile metin sayısı `Screenshots.astro`'daki bekçi tarafından
+   karşılaştırılır; birini eklemeyi unutursanız build düşer.
+6. Galerideki görseller `loading="lazy"` kullanır. Hero'da yüklenecek bir görsel yok —
+   oradaki kart HTML'dir.
 
-Kutu stili `src/styles/global.css` içindeki `.screen-frame` sınıfındadır.
+Kutu stili `src/styles/global.css` içindeki `.phone-frame` (koyu çerçeve) ve `.phone-screen` (içindeki ekran) sınıflarındadır.
 
 ---
 
@@ -260,7 +266,7 @@ Hepsi tek dosyada: **`src/config.ts`**. Hiçbiri bileşenlerin içine sabit yaz�
 `siteUrl` boş bırakılırsa `canonical`, `hreflang`, `og:url` ve `sitemap.xml`
 **hiç üretilmez** — yanlış alan adı vermektense hiç vermemek tercih edilmiştir.
 
-Gerçek ekran görüntüleri ve hero mockup’ı eklendi (yukarıdaki bölüme bakın).
+Gerçek ekran görüntüleri eklendi (yukarıdaki bölüme bakın).
 Logo ve favicon `src/img/clear_cart_logo.png` dosyasından üretilmiş durumda.
 
 ---
@@ -301,6 +307,29 @@ dil eklendiğinde TypeScript eksik slug'ı bildirsin.
 Bölüm çapaları **çevrilmez** ve `Header.astro` bunları `langPath(lang)` ile mutlak yazar
 (`/tr/#ozellikler`), böylece alt sayfalardan tıklanınca ana sayfaya gidip doğru bölüme
 kayarlar. Ana sayfada davranış değişmez.
+
+Tek istisna `#iletisim`: o bölüm `Footer.astro` içindedir ve footer her sayfada bulunur,
+bu yüzden göreli yazılır — mutlak olsaydı alt sayfada gereksiz yere ana sayfaya atardı.
+
+Header, açık olan sayfayı `aria-current="page"` ile işaretler. Bunun çalışması için
+sayfanın `paths` prop'unu vermesi yeterlidir; ayrıca bir şey yapmanız gerekmez.
+
+---
+
+## Başarılar ve hareket
+
+Başarılar iki dilde yedi kayıt içerir. Metinler `achievements.items` içinde,
+görseller `src/components/Achievements.astro` içindeki `photos` eşlemesindedir.
+Fotoğrafsız kayıtlar boş diziyle tanımlanır; eski zigzag düzenindeki 16:9 çerçeveleri korunur.
+Yeni fotoğraf için `src/img/achievements/` altına optimize dosyayı ekleyin, bileşene
+import edin ve ilgili anahtarın dizisine yerleştirin. İki dildeki `alt` dizilerine
+fotoğraf sırasına uygun açıklama ekleyin. Anahtar veya fotoğraf/alt metin eşleşmesi
+bozuksa build durur. Mevcut türevler 1120×630 boyutundadır; ham kaynaklar depoya alınmaz.
+
+`ScrollReveal.astro`, ekran altındaki başarı kayıtlarını, bölüm başlıklarını ve
+kartları bir kez görünür hale getirir. JS kapalıyken içerik görünür kalır;
+`prefers-reduced-motion` açıkken hareket uygulanmaz. Yeni öğeye `data-reveal`
+eklenebilir. Header'ın mobil menüsü Escape ile kapanır; JS kapalıyken açık gösterilir.
 
 ---
 

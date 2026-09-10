@@ -13,29 +13,39 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const items = t<{ caption: string; alt: string }[]>('screens.items');
 const sources = [home, allergens, scanResult];
+
+// Görsel sayısı ile metin sayısı ayrı yerlerde durduğu için eşleşmeyi doğrularız.
+if (sources.length !== items.length) {
+  throw new Error(
+    `[screens] görsel sayısı (${sources.length}) metin sayısıyla (${items.length}) eşleşmiyor.`
+  );
+}
 ---
 
-<section id="ekranlar" class="section bg-surface-card">
+<section id="ekranlar" class="section border-t border-brand/40">
   <div class="wrap">
-    <h2 class="measure text-3xl font-bold sm:text-4xl">{t('screens.heading')}</h2>
-    <p class="measure mt-3 text-ink-soft">{t('screens.description')}</p>
+    <h2 class="section-title mx-auto text-center">{t('screens.heading')}</h2>
 
-    <ul class="mt-10 grid gap-6 sm:grid-cols-3">
+    <ul class="mx-auto mt-10 grid max-w-[52rem] gap-6 sm:grid-cols-3 sm:gap-7">
       {
         items.map((item, index) => (
           <li>
-            <div class="screen-frame mx-auto max-w-[15rem] sm:max-w-[17rem]">
-              <Image
-                src={sources[index]}
-                alt={item.alt}
-                widths={[240, 272, 480, 544]}
-                sizes="(min-width: 640px) 17rem, 15rem"
-                loading="lazy"
-              />
-            </div>
-            <p class="mt-3 text-center text-sm text-ink-soft">
-              {String(index + 1)}. {item.caption}
-            </p>
+            <figure class="m-0">
+              <div class="phone-frame">
+                <div class="phone-screen">
+                  <Image
+                    src={sources[index]}
+                    alt={item.alt}
+                    widths={[240, 480]}
+                    sizes="(min-width: 640px) 15rem, 100vw"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <figcaption class="mt-3.5 text-center text-[15px] font-semibold text-brand-deep">
+                {item.caption}
+              </figcaption>
+            </figure>
           </li>
         ))
       }

@@ -1,0 +1,68 @@
+<script>
+  // JS veya gözlemci yoksa içerik gizlenmez. İlk ekrandaki öğeler bekletilmez.
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!motion.matches && 'IntersectionObserver' in window) {
+    const elements = document.querySelectorAll<HTMLElement>(
+      '[data-reveal], main .section-title, main .card'
+    );
+    const reveal = (element: Element) => {
+      element.classList.replace('reveal-pending', 'reveal-visible');
+    };
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          reveal(entry.target);
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
+    elements.forEach(element => {
+      if (element.getBoundingClientRect().top >= window.innerHeight) {
+        element.classList.add('reveal-pending');
+        observer.observe(element);
+      }
+    });
+    // Klavyeyle ulaşılan öğe, animasyon tamamlanmasını beklemeden görünür.
+    document.addEventListener('focusin', event => {
+      if (event.target instanceof Element) {
+        const parent = event.target.closest('.reveal-pending');
+        if (parent) { reveal(parent); observer.unobserve(parent); }
+      }
+    });
+    motion.addEventListener('change', event => {
+      if (event.matches) { elements.forEach(reveal); observer.disconnect(); }
+    });
+  }
+
+  // Zaman çizgisi JavaScript olmadan tamamen görünür. Hareket açıksa çizgi,
+  // görünüm alanının yaklaşık üçte ikilik hizasına kadar kaydırmayla ilerler.
+  const timelines = document.querySelectorAll<HTMLElement>('[data-timeline]');
+  if (!motion.matches && timelines.length > 0) {
+    let frame = 0;
+    const updateTimelines = () => {
+      frame = 0;
+      const guide = window.innerHeight * 0.68;
+      timelines.forEach(timeline => {
+        const rect = timeline.getBoundingClientRect();
+        const progress = Math.min(1, Math.max(0, (guide - rect.top) / rect.height));
+        timeline.style.setProperty('--timeline-progress', String(progress));
+      });
+    };
+    const queueUpdate = () => {
+      if (!frame) frame = requestAnimationFrame(updateTimelines);
+    };
+
+    timelines.forEach(timeline => timeline.classList.add('timeline-active'));
+    updateTimelines();
+    addEventListener('scroll', queueUpdate, { passive: true });
+    addEventListener('resize', queueUpdate);
+    motion.addEventListener('change', event => {
+      if (event.matches) {
+        timelines.forEach(timeline => {
+          timeline.classList.remove('timeline-active');
+          timeline.style.removeProperty('--timeline-progress');
+        });
+      }
+    });
+  }
+</script>

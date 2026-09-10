@@ -22,3 +22,5 @@ pnpm-debug.log*
 .remember/
 # iç doküman — public repoda yayınlanmıyor
 web-sitesi-promtu.md
+# Başarı fotoğraflarının ham kaynakları; yayında yalnızca optimize türevler kullanılır.
+src/img/achievements/ham/

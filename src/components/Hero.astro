@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import { useTranslations, type Lang } from '../i18n/ui.ts';
-import mockup from '../img/mockup.png';
+import ScanResult from './ScanResult.astro';
 
 interface Props {
   lang: Lang;
@@ -9,37 +8,60 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+// Başlık satır satır tutulur: kırılma noktası çeviriye göre değişsin diye.
+// Tek dize olsaydı dizgi İngilizcede farklı yerden bölünürdü.
+const titleLines = t<string[]>('hero.titleLines');
+const profileChips = t<string[]>('hero.profileChips');
 ---
 
-<section class="section relative overflow-hidden pt-10 sm:pt-14">
-  <!-- dekoratif zemin lekesi -->
+<section class="section relative overflow-hidden pt-8 sm:pt-12">
+  <!-- dekoratif zemin lekesi; #ab8abf yalnızca gradyanda, üzerine metin gelmiyor -->
   <div
-    class="pointer-events-none absolute -right-24 -top-32 hidden h-80 w-80 rounded-full bg-brand/35 blur-3xl md:block"
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_88%_0%,var(--color-brand)_0%,transparent_62%)] opacity-45"
     aria-hidden="true"
   >
   </div>
 
-  <div class="wrap relative grid items-center gap-10 md:grid-cols-[1.15fr_0.85fr] md:gap-14">
+  <div
+    class="wrap relative grid items-center gap-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14"
+  >
     <div>
-      <h1 class="measure text-4xl font-bold sm:text-5xl">{t('hero.title')}</h1>
-      <p class="measure mt-5 text-lg text-ink-soft">{t('hero.subtitle')}</p>
+      <span class="chip">
+        <svg
+          class="h-3.5 w-3.5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 6v6l4 2"></path>
+        </svg>
+        {t('hero.badge')}
+      </span>
 
-      <div class="mt-8 flex flex-wrap gap-3">
+      <h1 class="mt-4 text-[clamp(2.5rem,6vw,4.125rem)] font-bold tracking-tight">
+        {titleLines.map((line, index) => <>{index > 0 && <br />}{line}</>)}
+      </h1>
+
+      <p class="mt-4 max-w-[46ch] text-lg text-ink-soft">{t('hero.subtitle')}</p>
+
+      <div class="mt-7 flex flex-wrap gap-3">
         <a href="#bekleme-listesi" class="btn btn-primary">{t('hero.primaryCta')}</a>
         <a href="#nasil-calisir" class="btn btn-secondary">{t('hero.secondaryCta')}</a>
       </div>
+
+      <!-- Hero'daki karta bağlam veren örnek profil: kartın neden GLUTEN dediğini açıklar. -->
+      <div class="mt-8 flex flex-wrap items-center gap-2.5">
+        <span class="text-[13px] text-ink-soft">{t('hero.profileLabel')}</span>
+        {profileChips.map((chip) => <span class="chip">{chip}</span>)}
+      </div>
     </div>
 
-    <!-- Mockup kendi mor zeminiyle geliyor; çerçeveye değil doğrudan yerleştirilir. -->
-    <div class="mx-auto w-full max-w-[18rem] sm:max-w-[21rem]">
-      <Image
-        src={mockup}
-        alt={t('hero.imageAlt')}
-        widths={[288, 336, 380]}
-        sizes="(min-width: 768px) 21rem, 18rem"
-        loading="eager"
-        class="w-full rounded-[1.75rem] shadow-xl shadow-brand-deep/20"
-      />
-    </div>
+    <ScanResult lang={lang} />
   </div>
 </section>

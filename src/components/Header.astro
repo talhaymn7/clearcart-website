@@ -4,6 +4,7 @@ import {
   langPath,
   aboutPath,
   visionPath,
+  achievementsPath,
   languages,
   type Lang,
 } from '../i18n/ui.ts';
@@ -28,13 +29,24 @@ const langPaths = paths ?? { tr: langPath('tr'), en: langPath('en') };
 // Menüde iki tür link var: ana sayfadaki bölümlere giden çapalar ve alt sayfalar.
 // Çapalar ana sayfaya mutlak olarak bağlanır — Header her sayfada göründüğü için
 // düz '#ozellikler' yazılsaydı alt sayfalarda ölü link olurdu.
-const sectionLinks = [
+//
+// TEK İSTİSNA #iletisim: o bölüm Footer'ın içinde ve Footer her sayfada var,
+// dolayısıyla göreli çapa her sayfada çalışır. Mutlak yazılsaydı alt sayfada
+// "İletişim"e basmak kullanıcıyı gereksiz yere ana sayfaya atardı.
+const navLinks = [
   { href: `${home}#nasil-calisir`, label: t('nav.links.how') },
   { href: `${home}#ozellikler`, label: t('nav.links.features') },
   { href: aboutPath(lang), label: t('nav.links.about') },
   { href: visionPath(lang), label: t('nav.links.vision') },
-  { href: `${home}#iletisim`, label: t('nav.links.contact') },
-];
+  { href: achievementsPath(lang), label: t('nav.links.achievements') },
+  { href: '#iletisim', label: t('nav.links.contact') },
+].map((link) => ({
+  ...link,
+  // Bulunulan sayfa BaseLayout'un geçirdiği paths'ten bilinir; Astro.url ile
+  // uğraşmaya gerek yok, base yolu da hesaba katılmış olur. Çapa linkleri '#'
+  // içerdiği için hiçbir zaman eşleşmez — yalnızca alt sayfalar işaretlenir.
+  isCurrent: link.href === langPaths[lang],
+}));
 
 const waitlistHref = `${home}#bekleme-listesi`;
 
@@ -42,9 +54,10 @@ const langCodes = Object.keys(languages) as Lang[];
 ---
 
 <header
-  class="sticky top-0 z-40 border-b border-brand/40 bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/75"
+  class="site-header"
 >
-  <div class="wrap flex items-center justify-between gap-3 py-3">
+  <div class="header-panel">
+  <div class="header-row">
     <a
       href={langPath(lang)}
       class="flex items-center gap-2 font-bold text-brand-deep"
@@ -55,10 +68,17 @@ const langCodes = Object.keys(languages) as Lang[];
     </a>
 
     <div class="flex items-center gap-2 sm:gap-4">
-      <nav class="hidden items-center gap-5 lg:flex" aria-label={t('nav.primaryLabel')}>
+      <nav class="desktop-nav" aria-label={t('nav.primaryLabel')}>
         {
-          sectionLinks.map((link) => (
-            <a href={link.href} class="whitespace-nowrap text-sm font-medium text-ink-soft hover:text-brand-deep">
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              aria-current={link.isCurrent ? 'page' : undefined}
+              class:list={[
+                'nav-link',
+                link.isCurrent && 'is-current',
+              ]}
+            >
               {link.label}
             </a>
           ))
@@ -94,7 +114,7 @@ const langCodes = Object.keys(languages) as Lang[];
       <button
         type="button"
         id="menu-toggle"
-        class="inline-flex items-center justify-center rounded-full border border-brand-deep/50 p-2 text-brand-deep lg:hidden"
+        class="menu-toggle items-center justify-center rounded-full border border-brand-deep/50 p-2 text-brand-deep"
         aria-controls="mobile-menu"
         aria-expanded="false"
         aria-label={t('nav.menuOpen')}
@@ -117,17 +137,25 @@ const langCodes = Object.keys(languages) as Lang[];
     </div>
   </div>
 
-  <div id="mobile-menu" class="wrap hidden border-t border-brand/40 pb-4 lg:hidden">
+  <div id="mobile-menu" class="mobile-menu hidden">
     <nav class="flex flex-col gap-1 pt-3" aria-label={t('nav.primaryLabel')}>
       {
-        sectionLinks.map((link) => (
-          <a href={link.href} class="rounded-soft px-2 py-2 font-medium text-ink hover:bg-brand/20">
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            aria-current={link.isCurrent ? 'page' : undefined}
+            class:list={[
+              'rounded-soft px-2 py-2 font-medium hover:bg-brand/20',
+              link.isCurrent ? 'bg-brand/25 font-semibold text-brand-deep' : 'text-ink',
+            ]}
+          >
             {link.label}
           </a>
         ))
       }
       <a href={waitlistHref} class="btn btn-primary mt-2">{t('nav.waitlist')}</a>
     </nav>
+  </div>
   </div>
 </header>
 
@@ -150,5 +178,22 @@ const langCodes = Object.keys(languages) as Lang[];
     menu.addEventListener('click', (event) => {
       if ((event.target as HTMLElement).closest('a')) setOpen(false);
     });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !menu.classList.contains('hidden')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    matchMedia('(min-width: 1280px)').addEventListener('change', (event) => {
+      if (event.matches) setOpen(false);
+    });
   }
 </script>
+
+<!-- JavaScript kapalıyken mobil gezinme erişilebilir kalır. -->
+<noscript>
+  <style>
+    #menu-toggle { display: none; }
+    @media (width < 80rem) { #mobile-menu { display: block; } }
+  </style>
+</noscript>

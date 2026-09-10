@@ -86,7 +86,7 @@ Dört gerçek sayfa var, her dilde iki tane:
 
 | Yol | Dosya | İçerik |
 |---|---|---|
-| `/tr/` — `/en/` | `pages/<lang>/index.astro` | Yedi bileşenli ana sayfa |
+| `/tr/` — `/en/` | `pages/<lang>/index.astro` | Altı bileşenli ana sayfa |
 | `/tr/hakkimizda/` — `/en/about/` | `pages/tr/hakkimizda.astro`, `pages/en/about.astro` | `About.astro` |
 
 - `/` → `noindex` + `<meta http-equiv="refresh">` ile `/tr/`'ye gider (JS'siz de çalışsın diye).
@@ -114,6 +114,18 @@ yazar (`/tr/#ozellikler`). Düz `#ozellikler` yazılsaydı alt sayfalarda ölü 
 Ana sayfada davranış aynıdır — aynı belge içi çapa gezinmesi, kaydırma değişmez.
 `Hero.astro` göreli çapa kullanmaya devam eder; o bileşen yalnızca ana sayfada görünür.
 
+**Bu kuralın tek istisnası `#iletisim`.** O bölüm ayrı bir ana sayfa bölümü değil,
+`Footer.astro`'nun içindedir; footer da her sayfada bulunur. Dolayısıyla göreli çapa
+zaten her sayfada çalışır ve Header onu bilerek `#iletisim` olarak yazar — mutlak
+yazılsaydı alt sayfada "İletişim"e basmak kullanıcıyı gereksiz yere ana sayfaya atardı.
+Diğer dördü ana sayfaya özgü bölümler olduğu için mutlak kalır.
+
+Header ayrıca **bulunulan sayfayı işaretler**: `aria-current="page"` ve görsel vurgu,
+link `href`'i `BaseLayout`'un geçirdiği `paths[lang]` ile eşleştiğinde uygulanır.
+`Astro.url` kullanılmaz — `paths` değerleri zaten `withBase()`'ten geçmiştir, böylece
+`PAGES_BASE` altında da doğru çalışır. Çapa linkleri `#` içerdiği için hiçbir zaman
+eşleşmez; yalnızca alt sayfalar işaretlenir.
+
 `PAGES_BASE` ortam değişkeni Astro `base`'ini belirler. Bu yüzden `public/` altındaki
 her varlığa ve her iç bağlantıya **`withBase()` / `langPath()` / `aboutPath()` üzerinden**
 erişilir; `/logo.png` gibi kök yollar elle yazılmaz.
@@ -130,12 +142,13 @@ erişilir; `/logo.png` gibi kök yollar elle yazılmaz.
 `package.json`'a bağımlılık olarak eklenmemiştir. Yeniden üretim komutları ve
 `SRC_BOX` uyarısı README'nin "Logo ve favicon" bölümündedir.
 
-Galeri kutuları `9 / 19.5` oranındadır (`.screen-frame`, `object-fit: cover`); farklı
+Telefon kutuları `9 / 19.5` oranındadır (`.phone-frame` koyu çerçeve + içindeki
+`.phone-screen`, `object-fit: cover`); farklı
 oranda bir görsel kırpılır. Yeni ekran görüntüsü eklerken README'deki adımları izleyin —
 görseli `Screenshots.astro`'daki `sources` dizisine eklemek **ve** `screens.items`'a iki
 dilde `caption` + `alt` yazmak birlikte gerekir, aksi halde build düşer.
 
-Ekip fotoğrafları `src/img/team/` altındadır ve `.avatar-frame` (`.screen-frame`'in
+Ekip fotoğrafları `src/img/team/` altındadır ve `.avatar-frame` (`.phone-frame`'in
 yuvarlak kardeşi) içinde, `.card` kutularının tepesinde gösterilir. `alt=""` bilinçlidir:
 isim hemen altta metin olarak yazdığı için fotoğraf dekoratiftir — `Logo.astro`'daki
 gerekçenin aynısı.
@@ -169,14 +182,23 @@ Tailwind 4, CSS-first: **`tailwind.config.js` yoktur.** Marka token'ları
 yazmak `text-brand-deep` / `bg-brand-deep` sınıflarını üretir. Astro entegrasyonu değil,
 `@tailwindcss/vite` plugin'i doğrudan Vite'a takılıdır.
 
-Tekrar eden ve kimlik taşıyan görünümler (`wrap`, `section`, `measure`, `card`, `btn`,
-`btn-primary`, `screen-frame`, `avatar-frame`, `divider`) `@layer components` altında elle
+Tekrar eden ve kimlik taşıyan görünümler (`wrap`, `section`, `section-invert`, `measure`,
+`card`, `btn`, `btn-primary`, `chip`, `eyebrow`, `phone-frame`, `phone-screen`,
+`phone-tilt`, `avatar-frame`, `divider`, `rise`) `@layer components` altında elle
 yazılmış sınıflardır; utility'ler yalnızca o anlık yerleşim kararları için kullanılır. Yeni
 paylaşılan bir görünüm eklerken bu ayrımı sürdürün.
 
+**Ana sayfanın ritmi kasıtlıdır.** Her bölüm aynı kart ızgarasına sokulursa sayfa tek bir
+uzun listeye dönüşür — bir önceki tasarımın sorunu buydu. Bugün düzenler dönüşümlüdür:
+`HowItWorks` çizgili numaralı liste, `Problem` tam genişlik koyu mor kesit
+(`.section-invert`), `Features` asimetrik telefon + kart sütunu, `Screenshots` ortalanmış
+üçlü. Yeni bölüm eklerken komşusuyla aynı düzeni tekrarlamayın.
+
 Erişilebilirlik kararları kasıtlıdır: `outline: none` hiçbir yerde yoktur,
-`prefers-reduced-motion` bloğu vardır, `#ab8abf` (`--brand`) yalnızca dekoratiftir —
-kontrastı düşük olduğu için üzerine veya altına metin yazılmaz.
+`prefers-reduced-motion` bloğu vardır (`.rise` animasyonunu da o durdurur), `#ab8abf`
+(`--brand`) yalnızca dekoratiftir — kontrastı düşük olduğu için üzerine veya altına metin
+yazılmaz. `--warn` (`#8e1f2b`) yalnızca alerjen uyarısında kullanılır; beyaz metinle
+~8.4:1 verir, `--brand-deep` üzerindeki beyaz ise ~7.4:1.
 
 ## Deploy
 

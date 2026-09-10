@@ -14,14 +14,16 @@ const values = t<{ title: string; body: string }[]>('vision.values');
 
 <section class="section">
   <div class="wrap">
-    <h1 class="measure text-4xl font-bold sm:text-5xl">{t('vision.heading')}</h1>
+    <div class="page-heading">
+      <h1 class="page-title">{t('vision.heading')}</h1>
+    </div>
 
     <div class="mt-12 grid items-center gap-10 md:grid-cols-[1.15fr_0.85fr] md:gap-14">
       <div>
-        <h2 class="text-2xl font-bold sm:text-3xl">{t('vision.visionHeading')}</h2>
+        <h2 class="section-title">{t('vision.visionHeading')}</h2>
         <p class="measure mt-4 text-lg text-ink-soft">{t('vision.visionBody')}</p>
 
-        <h2 class="mt-12 text-2xl font-bold sm:text-3xl">{t('vision.missionHeading')}</h2>
+        <h2 class="section-title mt-12">{t('vision.missionHeading')}</h2>
         <p class="measure mt-4 text-lg text-ink-soft">{t('vision.missionBody')}</p>
       </div>
 
@@ -39,7 +41,7 @@ const values = t<{ title: string; body: string }[]>('vision.values');
       </div>
     </div>
 
-    <h2 class="mt-14 text-2xl font-bold sm:text-3xl">{t('vision.valuesHeading')}</h2>
+    <h2 class="section-title mt-14">{t('vision.valuesHeading')}</h2>
 
     <ul class="mt-8 grid gap-5 sm:grid-cols-3">
       {

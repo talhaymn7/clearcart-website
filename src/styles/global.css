@@ -12,6 +12,8 @@
   --color-surface-card: #f5f0e8;
   --color-ink: #2e2333;
   --color-ink-soft: #5b4f63;
+  /* Alerjen uyarısı. Yalnızca uyarı bileşeninde kullanılır; beyaz metinle ~8.4:1. */
+  --color-warn: #8e1f2b;
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
@@ -29,6 +31,7 @@
   --surface-card: #f5f0e8; /* kart zemini */
   --ink: #2e2333; /* gövde metni */
   --ink-soft: #5b4f63; /* ikincil metin */
+  --warn: #8e1f2b; /* alerjen uyarısı */
 
   color-scheme: light;
 }
@@ -88,6 +91,174 @@
     padding-block: clamp(3.5rem, 8vw, 6rem);
   }
 
+  /* Sayfadan boşlukla ayrılan gezinme paneli. */
+  .site-header { position: sticky; top: 0; z-index: 40; padding: .75rem 1rem; }
+  .header-panel {
+    max-width: 80rem; margin-inline: auto; border-radius: 1.25rem;
+    border: 1px solid color-mix(in srgb, var(--brand-deep) 18%, transparent);
+    background: color-mix(in srgb, var(--surface-card) 96%, transparent);
+    box-shadow: 0 8px 28px -18px var(--brand-deep);
+    backdrop-filter: blur(16px);
+  }
+  .header-row { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .875rem 1.25rem; }
+  .desktop-nav { display: none; align-items: center; gap: .2rem; }
+  .menu-toggle { display: inline-flex; }
+  .nav-link { padding: .6rem .7rem; border-radius: 999px; white-space: nowrap; font-size: .8125rem; font-weight: 600; color: var(--ink-soft); }
+  .nav-link:hover, .nav-link.is-current { background: var(--surface); color: var(--brand-deep); }
+  .nav-link.is-current { box-shadow: inset 0 -2px var(--brand-deep); }
+  .mobile-menu { padding: 0 1.25rem 1rem; border-top: 1px solid var(--surface); max-height: 70dvh; overflow-y: auto; }
+  @media (width >= 80rem) {
+    .desktop-nav { display: flex; }
+    .menu-toggle, .mobile-menu { display: none; }
+  }
+  @media (width < 40rem) {
+    .site-header { padding: .5rem; }
+    .header-row { padding: .75rem; }
+    .header-row > a { gap: .35rem; }
+    .header-row > a span { font-size: .95rem; }
+  }
+
+  /* Her dilde aynı başlık ritmi; uzun başlıklar doğal olarak kırılır. */
+  .page-heading { max-width: 52rem; margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
+  .page-title { font-size: clamp(2.4rem, 5.5vw, 4.25rem); line-height: 1.08; letter-spacing: -.045em; max-width: 22ch; margin-top: .8rem; }
+  .page-intro { font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--ink-soft); max-width: 58ch; margin-top: 1.5rem; }
+  .section-title { font-size: clamp(1.9rem, 3.5vw, 2.8rem); line-height: 1.15; letter-spacing: -.035em; max-width: 26ch; }
+  .item-title { font-size: clamp(1.35rem, 2.4vw, 1.85rem); line-height: 1.2; letter-spacing: -.025em; }
+  .page-heading .eyebrow { font-size: .75rem; font-weight: 700; color: var(--brand-deep); }
+
+  .site-footer { margin-top: 1.5rem; background: var(--brand-deep); color: #fff; border-radius: 2rem 2rem 0 0; }
+  .footer-grid { display: grid; gap: 2.5rem; padding-block: 1rem; }
+  .site-footer :where(a, h2, .text-ink-soft, .text-ink, .text-brand-deep, .eyebrow) { color: #fff; }
+  .site-footer a:hover { color: #fff; text-decoration: underline; text-underline-offset: .25rem; }
+  .site-footer :focus-visible { outline-color: #fff; }
+  .site-footer .eyebrow { color: #fff; font-size: .75rem; font-weight: 700; letter-spacing: .12em; }
+  .footer-tagline { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.2; font-weight: 650; letter-spacing: -.03em; max-width: 20ch; margin-top: 1.5rem; }
+  @media (width >= 40rem) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-grid > :first-child { grid-column: 1 / -1; } }
+  @media (width >= 64rem) { .footer-grid { grid-template-columns: 1.4fr 1fr .8fr; } .footer-grid > :first-child { grid-column: auto; } }
+
+  .photo-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-soft);
+    border: 1px solid color-mix(in srgb, var(--brand) 60%, transparent);
+    background-image: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--brand) 28%, var(--surface-card)),
+      var(--surface-card) 60%,
+      color-mix(in srgb, var(--brand) 18%, var(--surface-card))
+    );
+    overflow: hidden;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-frame-poster {
+    width: 100%;
+    max-width: 30rem;
+    aspect-ratio: 4 / 5;
+    justify-self: center;
+  }
+
+  .photo-frame-poster img {
+    object-fit: contain;
+  }
+
+  .photo-frame-lidea img {
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  /*
+    Birden fazla fotoğrafı olan başarılarda çerçevenin içi yatay kaydırılır.
+    Tamamı CSS — JavaScript yok: dokunmatikte parmakla, masaüstünde kaydırma
+    çubuğu ve (tabindex sayesinde) klavye ok tuşlarıyla çalışır.
+    Tek fotoğrafta taşma olmadığı için ne çubuk çıkar ne de kaydırma olur.
+  */
+  .photo-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--brand-deep) 45%, transparent) transparent;
+  }
+
+  .photo-track > * {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+  }
+
+  .achievement-timeline {
+    --timeline-progress: 1;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .achievement-timeline::before,
+  .achievement-timeline::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    left: .5rem;
+    width: 2px;
+    border-radius: 999px;
+    transform-origin: top;
+  }
+
+  .achievement-timeline::before {
+    background: color-mix(in srgb, var(--brand) 38%, transparent);
+  }
+
+  .achievement-timeline::after {
+    background: var(--brand-deep);
+  }
+
+  .achievement-timeline.timeline-active::after {
+    transform: scaleY(var(--timeline-progress));
+  }
+
+  .achievement-timeline-item {
+    position: relative;
+    z-index: 1;
+  }
+
+  .achievement-timeline-item::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: -1.5rem;
+    width: .75rem;
+    height: .75rem;
+    border: 3px solid var(--brand-deep);
+    border-radius: 999px;
+    background: var(--surface);
+    transform: translate(-50%, -50%);
+  }
+
+  @media (width >= 40rem) {
+    .achievement-timeline { padding-left: 0; }
+    .achievement-timeline::before,
+    .achievement-timeline::after {
+      left: 50%;
+      margin-left: -1px;
+    }
+    .achievement-timeline-item::before { left: 50%; }
+  }
+
+  /* İçerik varsayılan olarak görünür; yalnızca çalışan gözlemci hareketi açar. */
+  .reveal-pending { opacity: 0; transform: translateY(22px); }
+  .reveal-visible { opacity: 1; transform: none; transition: opacity 650ms ease, transform 650ms cubic-bezier(.2,.7,.2,1); }
+
   .measure {
     max-width: 62ch;
   }
@@ -140,31 +311,110 @@
     background-color: color-mix(in srgb, var(--brand) 22%, transparent);
   }
 
-  /* Ekran görüntüsü gelene kadar duran boş çerçeve. */
-  .screen-frame {
-    position: relative;
+  /*
+    Telefon çerçevesi: koyu çerçeve (.phone-frame) + içindeki ekran (.phone-screen).
+    İki parça olmasının nedeni, çerçevenin dolgusunun ekranın kendi yuvarlatmasından
+    bağımsız olması. Ekran görüntüsü gelene kadar .phone-screen gradyanla dolu durur.
+  */
+  .phone-frame {
     aspect-ratio: 9 / 19.5;
-    display: grid;
-    place-items: center;
-    border-radius: var(--radius-card);
-    border: 1px solid color-mix(in srgb, var(--brand) 60%, transparent);
+    border-radius: 36px;
+    padding: 8px;
+    background-color: var(--ink);
+    box-shadow: 0 22px 44px -24px color-mix(in srgb, var(--ink) 55%, transparent);
+  }
+
+  .phone-screen {
+    height: 100%;
+    border-radius: 28px;
+    overflow: hidden;
     background-image: linear-gradient(
       160deg,
       color-mix(in srgb, var(--brand) 28%, var(--surface-card)),
       var(--surface-card) 60%,
       color-mix(in srgb, var(--brand) 18%, var(--surface-card))
     );
-    overflow: hidden;
   }
 
-  .screen-frame img {
+  .phone-screen img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
   /*
-    Ekip görseli çerçevesi — .screen-frame'in yuvarlak kardeşi.
+    Tam genişlik koyu mor kesit. Sayfanın ritmini kırar: bej bölümler arasında
+    tek bir koyu blok durur. Beyaz metin #674879 üzerinde ~7.4:1 kontrast verir.
+  */
+  .section-invert {
+    background-color: var(--brand-deep);
+    color: #ffffff;
+  }
+
+  .section-invert :where(h1, h2, h3) {
+    color: #ffffff;
+  }
+
+  /* Küçük yuvarlak etiket: hero rozeti ve alerjen profili çipleri. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--brand) 65%, transparent);
+    background-color: var(--surface-card);
+    padding: 0.3rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--brand-deep);
+  }
+
+  /* Üstü küçük, harfleri aralıklı bölüm etiketi. */
+  .eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /*
+    Hero telefonunun hafif 3B eğimi. İki parçalı: perspektif ebeveynde, dönüş
+    çocukta durmak zorunda. Dar ekranda düzleşir, yoksa kart kırpılmış görünüyor.
+  */
+  .phone-tilt {
+    perspective: 1400px;
+  }
+
+  .phone-tilt > * {
+    transform: rotateY(16deg) rotateX(6deg) rotateZ(2deg);
+    transform-style: preserve-3d;
+  }
+
+  @media (width < 40rem) {
+    .phone-tilt > * {
+      transform: none;
+    }
+  }
+
+  /* Hero kartının giriş hareketi. Aşağıdaki reduced-motion bloğu bunu da durdurur. */
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .rise {
+    animation: rise 620ms cubic-bezier(0.22, 0.9, 0.3, 1) both;
+  }
+
+  /*
+    Ekip görseli çerçevesi — .phone-frame'in yuvarlak kardeşi.
     Gerçek fotoğraf gelene kadar gradyanlı boş daire olarak durur;
     içine <img> konduğunda aynı daireyi doldurur.
   */
@@ -202,6 +452,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .reveal-pending, .reveal-visible { opacity: 1; transform: none; }
+  .achievement-timeline.timeline-active::after { transform: scaleY(1); }
   html {
     scroll-behavior: auto;
   }

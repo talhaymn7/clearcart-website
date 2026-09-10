@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { useTranslations, type Lang } from '../i18n/ui.ts';
+import allergens from '../img/screens/allergens.png';
 
 interface Props {
   lang: Lang;
@@ -8,38 +10,89 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const items = t<{ title: string; body: string }[]>('features.items');
+
+// Maddelerin ikonları burada durur: içerik değil, görsel karar oldukları için
+// i18n'e girmezler. Dizi maddelerle aynı sırada olmak zorundadır.
+const icons = [
+  'M4.5 7h9M4.5 12h15M4.5 17h6',
+  'M12 5.5a6.5 6.5 0 0 1 6.5 6.5c0 4-6.5 8.5-6.5 8.5S5.5 16 5.5 12A6.5 6.5 0 0 1 12 5.5zM9.5 12h5',
+  'M4 5v14M8 5v14M12 5v14M16.5 5v14M20 5v14',
+  'M13 3l-8 11h6l-1 7 8-11h-6z',
+  'M4 6h16v13H4zM4 10h16M9 6V4.5h6V6',
+];
+
+// About.astro'daki bekçi ile aynı mantık: eşleşmeyen sayı sessizce ikonsuz
+// madde üretirdi, onun yerine build'i düşürüyoruz.
+if (icons.length !== items.length) {
+  throw new Error(
+    `[features] ikon sayısı (${icons.length}) madde sayısıyla (${items.length}) eşleşmiyor.`
+  );
+}
 ---
 
+{/*
+  Asimetrik: solda tek büyük telefon, sağda maddeler. Dört eşit kutu yerine
+  bunun seçilmesinin nedeni, "alerji profili" maddesinin diğerlerinden önemli
+  olması — ekranı gösterince madde kendini anlatıyor.
+*/}
 <section id="ozellikler" class="section">
   <div class="wrap">
-    <h2 class="measure text-3xl font-bold sm:text-4xl">{t('features.heading')}</h2>
+    <h2 class="section-title">{t('features.heading')}</h2>
 
-    <ul class="mt-10 grid gap-5 sm:grid-cols-2">
-      {
-        items.map((item) => (
-          <li class="card flex gap-4">
-            <span class="mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand/30 text-brand-deep">
-              <svg
-                class="h-4 w-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M5 12.5l4.5 4.5L19 7.5" />
-              </svg>
-            </span>
-            <div>
-              <h3 class="text-lg font-semibold">{item.title}</h3>
-              <p class="mt-1 text-ink-soft">{item.body}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="mt-8 grid items-start gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-11">
+      <figure class="m-0 flex flex-col items-center gap-4">
+        <div class="phone-frame w-full max-w-[17rem]">
+          <div class="phone-screen">
+            {/*
+              Genişlik sütunla birlikte değiştiği için burada densities değil
+              widths + sizes kullanılır (About.astro'daki sabit daireden farkı bu).
+            */}
+            {/*
+              Kaynak görüntünün tepesinde boş alan var; alttan sabitleyip hafif
+              büyüterek kırpıyoruz, yoksa çerçevenin üst yarısı boş duruyor.
+            */}
+            <Image
+              src={allergens}
+              alt={t('features.screenAlt')}
+              widths={[272, 544]}
+              sizes="(min-width: 1024px) 17rem, 15rem"
+              loading="lazy"
+              class="origin-bottom scale-110"
+            />
+          </div>
+        </div>
+        <figcaption class="max-w-[34ch] text-center text-sm text-ink-soft">
+          {t('features.screenCaption')}
+        </figcaption>
+      </figure>
+
+      <ul class="grid content-start gap-4">
+        {
+          items.map((item, index) => (
+            <li class="card flex items-start gap-4 px-6 py-5">
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-soft bg-brand/30 text-brand-deep">
+                <svg
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d={icons[index]} />
+                </svg>
+              </span>
+              <div>
+                <h3 class="text-lg font-semibold">{item.title}</h3>
+                <p class="mt-1.5 text-ink-soft">{item.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </section>

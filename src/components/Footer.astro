@@ -1,5 +1,6 @@
 ---
-import { useTranslations, langPath, type Lang } from '../i18n/ui.ts';
+import { SITE } from '../config.ts';
+import { useTranslations, langPath, aboutPath, visionPath, achievementsPath, type Lang } from '../i18n/ui.ts';
 import Logo from './Logo.astro';
 
 interface Props {
@@ -8,22 +9,141 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+const home = langPath(lang);
+
+// Header'daki kuralın aynısı: footer da her sayfada göründüğü için bölüm
+// çapaları ana sayfaya mutlak bağlanır, yoksa alt sayfalarda ölü link olurlar.
+const pageLinks = [
+  { href: `${home}#nasil-calisir`, label: t('nav.links.how') },
+  { href: `${home}#ozellikler`, label: t('nav.links.features') },
+  { href: aboutPath(lang), label: t('nav.links.about') },
+  { href: visionPath(lang), label: t('nav.links.vision') },
+  { href: achievementsPath(lang), label: t('nav.links.achievements') },
+];
 ---
 
-<footer class="border-t border-brand/45 bg-surface">
-  <div class="wrap flex flex-col gap-6 py-10">
-    <a
-      href={langPath(lang)}
-      class="flex w-fit items-center gap-2 font-bold text-brand-deep"
-      aria-label={t('nav.home')}
-    >
-      <Logo class="h-6 w-6" />
-      <span class="tracking-tight">Clear Cart</span>
-    </a>
+{/*
+  İletişim bölümü ayrı bir ana sayfa bölümü değil, footer'ın içindedir.
+  Footer her sayfada bulunduğu için #iletisim çapası da her sayfada çalışır —
+  Header bu tek çapayı bu yüzden göreli yazar.
+*/}
+<footer id="iletisim" class="site-footer">
+  <div class="wrap py-10 sm:py-14">
+    <div class="footer-grid">
+      <div>
+        <a
+          href={home}
+          class="flex w-fit items-center gap-2.5 font-bold"
+          aria-label={t('nav.home')}
+        >
+          <Logo class="h-8 w-8" />
+          <span class="tracking-tight">Clear Cart</span>
+        </a>
+        <p class="footer-tagline">{t('footer.tagline')}</p>
+        <p class="mt-4 max-w-[38ch] text-sm">{t('footer.description')}</p>
+      </div>
 
-    <div class="divider" aria-hidden="true"></div>
+      <div>
+        <h2 class="eyebrow text-[15px]">{t('contact.heading')}</h2>
+        <ul class="mt-3.5 flex flex-col gap-2.5">
+          <li>
+            <a
+              href={`mailto:${SITE.email}`}
+              class="inline-flex items-center gap-2.5 font-semibold hover:underline"
+            >
+              <svg
+                class="h-[18px] w-[18px] shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="M3.5 6.5 12 13l8.5-6.5"></path>
+              </svg>
+              {SITE.email}
+            </a>
+          </li>
+          <li>
+            <a
+              href={SITE.instagram}
+              rel="me noopener noreferrer"
+              target="_blank"
+              class="inline-flex items-center gap-2.5 font-semibold hover:underline"
+            >
+              <svg
+                class="h-[18px] w-[18px] shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M17.2 6.8h.01"></path>
+              </svg>
+              {t('contact.instagramLabel')}
+            </a>
+          </li>
+          <li>
+            <a
+              href={SITE.linkedin}
+              rel="me noopener noreferrer"
+              target="_blank"
+              class="inline-flex items-center gap-2.5 font-semibold hover:underline"
+            >
+              <svg
+                class="h-[18px] w-[18px] shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+                <path d="M7.5 10.5V17"></path>
+                <path d="M7.5 7.4h.01"></path>
+                <path d="M11.5 17v-3.6a2.4 2.4 0 0 1 4.8 0V17"></path>
+              </svg>
+              {t('contact.linkedinLabel')}
+            </a>
+          </li>
+        </ul>
+      </div>
 
-    <p class="measure text-sm text-ink-soft">{t('footer.disclaimer')}</p>
-    <p class="text-sm text-ink-soft">{t('footer.rights')}</p>
+      <nav aria-label={t('footer.pagesHeading')}>
+        <h2 class="eyebrow text-[15px]">{t('footer.pagesHeading')}</h2>
+        <ul class="mt-3.5 flex flex-col gap-2.5">
+          {
+            pageLinks.map((link) => (
+              <li>
+                <a href={link.href} class="footer-link">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mt-9 border-t border-brand/50 pt-5">
+      <div class="flex flex-wrap justify-between gap-4">
+        <p class="measure text-sm">{t('footer.disclaimer')}</p>
+        <p class="text-[13px]">{t('footer.rights')}</p>
+      </div>
+    </div>
   </div>
 </footer>

@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "Clear Cart — Ürünün fotoğrafını çek, içinde ne olduğunu öğren",
-    "description": "Clear Cart, markette elindeki ürünü tanır ve içeriğini senin alerji profilinle karşılaştırır. Küçük puntoları okumana gerek kalmaz.",
-    "ogImageAlt": "Clear Cart — gıda alerjisi olanlar için ürün tarama uygulaması",
+    "title": "Clear Cart: Ürünün fotoğrafını çek, içinde ne olduğunu öğren",
+    "description": "Clear Cart, ürün bilgilerini alerjen profilinle karşılaştırmana yardımcı olur. Ürünü tara, içeriğini incele, seçimini daha bilinçli yap.",
+    "ogImageAlt": "Clear Cart: gıda alerjisi olanlar için ürün tarama uygulaması",
     "langName": "Türkçe"
   },
   "nav": {
@@ -17,17 +17,42 @@
       "features": "Özellikler",
       "contact": "İletişim",
       "about": "Hakkımızda",
-      "vision": "Vizyon ve Misyon"
+      "vision": "Vizyon ve misyon",
+      "achievements": "Başarılarımız"
     },
     "primaryLabel": "Ana menü",
     "continue": "Türkçe sayfaya devam et"
   },
   "hero": {
-    "title": "Ürünün fotoğrafını çek, içinde ne olduğunu saniyeler içinde öğren.",
-    "subtitle": "Clear Cart, markette elindeki ürünü tanır ve içeriğini senin alerji profilinle karşılaştırır. Küçük puntoları okumana gerek kalmaz.",
+    "badge": "Yakında yayında",
+    "titleLines": [
+      "Fotoğrafı çek.",
+      "İçinde ne olduğunu gör."
+    ],
+    "subtitle": "Clear Cart, ürün bilgilerini alerjen profilinle karşılaştırmana yardımcı olur. Ürünü tara, içeriğini incele, seçimini daha bilinçli yap.",
     "primaryCta": "Bekleme listesine katıl",
     "secondaryCta": "Nasıl çalışır?",
+    "profileLabel": "Senin profilin:",
+    "profileChips": [
+      "Gluten",
+      "Süt",
+      "Fındık"
+    ],
     "imageAlt": "Clear Cart uygulamasının açılış ekranını gösteren telefon görseli."
+  },
+  "scan": {
+    "screenTitle": "Tarama sonucu",
+    "brandLabel": "Marka",
+    "brandName": "Örnek Marka",
+    "productName": "Kepekli Kraker 100 g",
+    "scoreLabel": "Benzerlik skoru",
+    "scoreValue": "%99,70",
+    "ingredientsLabel": "İçindekiler",
+    "ingredients": "Buğday unu, kepek, ayçiçek yağı, tuz, maya, süt tozu…",
+    "warning": "Seçtiğin alerjenlerden biri bu ürünün içeriğinde bulunuyor.",
+    "allergenLabel": "Alerjen",
+    "allergenName": "GLUTEN",
+    "sampleNote": "Uygulamanın tarama sonucu ekranından örnek bir görünüm."
   },
   "problem": {
     "heading": "Alerjiyle alışveriş yorucu.",
@@ -52,7 +77,7 @@
     "steps": [
       {
         "title": "Fotoğrafı çek.",
-        "body": "Ürünü telefonunla çek — barkodu görünüyorsa daha da hızlı."
+        "body": "Ürünü telefonunla çek. Barkodu görünüyorsa daha da hızlı."
       },
       {
         "title": "Ürün tanınır.",
@@ -60,24 +85,30 @@
       },
       {
         "title": "Uyarıyı gör.",
-        "body": "İçindekiler senin alerji profilinle karşılaştırılır, riskli olan her şey işaretlenir."
+        "body": "Ürünün içerik bilgileri profilinle karşılaştırılır; eşleşen alerjenler belirtilir."
       }
     ]
   },
   "features": {
     "heading": "Neler yapıyor?",
+    "screenCaption": "Alerjenlerini bir kez işaretle, her tarama profiline göre yapılsın.",
+    "screenAlt": "Alerjen güncelleme ekranı: gluten, süt, soya gibi alerjenlerin işaretlendiği liste.",
     "items": [
       {
         "title": "Kendi alerji profilin.",
         "body": "Alerjenlerini bir kez seç, her sorgu ona göre yapılsın."
       },
       {
+        "title": "Aile üyeleri için ayrı profil.",
+        "body": "Çocuğunun alerjenlerini ayrı tut, taramayı ona göre yap."
+      },
+      {
         "title": "Barkod ve görsel tanıma.",
         "body": "Barkod okunmazsa ürün görünüşünden bulunur."
       },
       {
-        "title": "Saniyeler içinde.",
-        "body": "Raf önünde beklemene gerek yok."
+        "title": "Pratik içerik kontrolü",
+        "body": "Ürün bilgilerini tek ekranda incele; alışveriş sırasında kontrolü kolaylaştır."
       },
       {
         "title": "Büyüyen katalog.",
@@ -87,7 +118,6 @@
   },
   "screens": {
     "heading": "Uygulamadan görüntüler",
-    "description": "Uygulamanın erken sürümünden alınmış gerçek ekran görüntüleri.",
     "items": [
       {
         "caption": "Ana ekran",
@@ -113,62 +143,146 @@
     "success": "Kaydını aldık. Yayınlandığında haber vereceğiz.",
     "error": "Bir şeyler ters gitti. Lütfen tekrar dener misin?",
     "privacy": "Adresini kimseyle paylaşmıyoruz, istediğin an listeden çıkabilirsin.",
-    "subject": "Clear Cart — yeni bekleme listesi kaydı"
+    "subject": "Clear Cart: yeni bekleme listesi kaydı"
   },
   "contact": {
     "heading": "Bize ulaş",
-    "description": "Sorun, fikrin ya da eklenmesini istediğin bir ürün mü var? Bize e-postayla ya da sosyal medyadan yazabilirsin.",
+    "description": "Sorun, fikrin ya da eklenmesini istediğin bir ürün mü var? Yaz bize.",
     "emailLabel": "E-posta gönder",
     "instagramLabel": "Instagram",
     "linkedinLabel": "LinkedIn"
   },
   "about": {
-    "metaTitle": "Hakkımızda — Clear Cart",
-    "metaDescription": "Clear Cart'ı kimlerin, neden geliştirdiğini anlatan sayfa.",
+    "metaTitle": "Hakkımızda: Clear Cart",
+    "metaDescription": "Clear Cart ekibiyle tanışın: ürün geliştirme, teknoloji ve yapay zekâ çalışmalarımız.",
     "heading": "Hakkımızda",
-    "intro": "Clear Cart'ı, alerjiyle yaşamanın günlük yükünü azaltmak için kurduk. Küçük bir ekibiz; ürünü kendi ihtiyacımızdan doğurduk ve hâlâ öyle geliştiriyoruz.",
+    "intro": "Ürün bilgilerine erişimi kolaylaştırmak için Clear Cart'ı geliştiriyoruz. Amacımız, alerjen hassasiyeti olan kullanıcıların alışveriş sırasında ihtiyaç duydukları bilgilere daha rahat ulaşmasına yardımcı olmak.",
     "teamHeading": "Ekip",
     "team": {
       "ahmet": {
         "role": "CTO",
-        "bio": "Uygulamanın teknik tarafını kuruyor; ürün tanımadan alerjen eşleştirmesine kadar altyapı ile ilgileniyor."
+        "bio": "Uygulamanın teknik geliştirmesini ve altyapısını yürütür; ürün tanıma ve alerjen eşleştirme süreçlerini bir araya getirir."
       },
       "asli": {
         "role": "CEO",
-        "bio": "Clear Cart'ın yönünü belirliyor; ürünün kime ve neden gerektiği sorusunu takip ediyor."
+        "bio": "Ürün stratejisi ve iş geliştirme çalışmalarını yürütür; kullanıcı ihtiyaçlarını Clear Cart'ın gelişimine taşır."
       },
       "tolga": {
-        "role": "AI Geliştirme",
-        "bio": "Ürün tanıma modelleri üzerinde çalışıyor; fotoğraftan doğru ürüne ulaşan kısmı ile ilgileniyor."
+        "role": "Yapay zekâ geliştirme",
+        "bio": "Görüntü işleme ve ürün tanıma modellerini geliştirir; yapay zekâ eğitim süreçleri üzerinde çalışır."
       }
     }
   },
   "vision": {
-    "metaTitle": "Vizyon ve Misyon — Clear Cart",
+    "metaTitle": "Vizyon ve Misyon: Clear Cart",
     "metaDescription": "Clear Cart'ın neyi hedeflediği, bugün ne yaptığı ve hangi ilkelerle geliştirildiği.",
     "heading": "Vizyon ve Misyon",
     "visionHeading": "Vizyonumuz",
-    "visionBody": "Bir gün kimsenin market rafında paketi ters çevirip küçük puntoları hecelemek zorunda kalmadığı bir alışveriş hayal ediyoruz. Alerjiyle yaşamak zaten yeterince dikkat istiyor; ürünün içinde ne olduğunu öğrenmek bu yükün en kolay kısmı olmalı.",
+    "visionBody": "Ürün içeriğini anlamanın herkes için daha kolay olduğu bir alışveriş deneyimi hedefliyoruz. Alerjen hassasiyeti olan kullanıcıların ihtiyaç duydukları bilgilere erişebilmesini ve daha bilinçli seçimler yapabilmesini önemsiyoruz.",
     "missionHeading": "Misyonumuz",
-    "missionBody": "Elindeki ürünü saniyeler içinde tanıyan ve içeriğini senin alerji profilinle karşılaştıran bir araç yapıyoruz. Amacımız etiketin yerini almak değil; raf önünde geçirdiğin zamanı kısaltmak ve gözden kaçabilecek bir alerjeni sana hatırlatmak.",
+    "missionBody": "Ürün tanıma teknolojisini kişisel alerjen profiliyle bir araya getiren bir mobil uygulama geliştiriyoruz. Ürün bilgilerini anlaşılır biçimde sunarak alışveriş sırasında içerik kontrolünü kolaylaştırmayı amaçlıyoruz. Ürünün güncel etiketi her zaman kontrolün bir parçasıdır.",
     "valuesHeading": "Değerlerimiz",
     "values": [
       {
-        "title": "Emin olmadığımızda söyleriz.",
-        "body": "Bir ürünü tanıyamadıysak ya da içerik bilgisi eksikse bunu gizlemek yerine belirtiriz. Son söz her zaman ürünün kendi etiketindedir."
+        "title": "Açık bilgi",
+        "body": "Ürün bilgilerini anlaşılır biçimde sunmayı, eksik veya belirsiz bilgileri açıkça belirtmeyi önemsiyoruz."
       },
       {
-        "title": "Sade kalır.",
-        "body": "Uygulama tek bir işi iyi yapsın istiyoruz: fotoğrafı çek, cevabı gör. Araya menü, hesap ya da gereksiz adım koymuyoruz."
+        "title": "Kolay kullanım",
+        "body": "Tarama ve içerik kontrolünü sade bir akışta bir araya getiriyor, kullanıcının ihtiyaç duyduğu bilgiye odaklanıyoruz."
       },
       {
-        "title": "Alerji bilgin sana ait.",
-        "body": "Alerji profili sağlık bilgisidir. Onu reklam için kullanmıyor, üçüncü taraflarla paylaşmıyoruz."
+        "title": "Mahremiyete saygı",
+        "body": "Kişisel alerjen bilgilerinin hassasiyetini gözetiyor, ürün kararlarımızda kullanıcı mahremiyetini önceliklendiriyoruz."
       }
     ]
   },
   "footer": {
+    "pagesHeading": "Keşfet",
     "disclaimer": "Clear Cart yardımcı bir araçtır, tıbbi tavsiye yerine geçmez. Ciddi alerjiniz varsa ürün etiketini mutlaka kontrol edin.",
-    "rights": "© 2026 Clear Cart. Tüm hakları saklıdır."
+    "rights": "© 2026 Clear Cart. Tüm hakları saklıdır.",
+    "tagline": "İçeriği anla. Daha bilinçli seçim yap.",
+    "description": "Clear Cart, ürün bilgilerini kişisel alerjen profilinle buluşturan bir alışveriş yardımcısıdır."
+  },
+  "achievements": {
+    "metaTitle": "Başarılarımız: Clear Cart",
+    "metaDescription": "Clear Cart'ın yarışma dereceleri, finalistlikleri ve girişimcilik programlarına kabulleri.",
+    "eyebrow": "Girişim yolculuğumuz",
+    "heading": "Başarılarımız",
+    "intro": "Fikrimizi geliştirdiğimiz programlar, deneyimimizi büyüten buluşmalar ve aldığımız dereceler. Clear Cart'ın yolculuğundaki dönüm noktaları.",
+    "galleryLabel": "Etkinlik fotoğrafları",
+    "galleryHint": "Diğer fotoğraf için yatay kaydır. Klavyede sağ ve sol ok tuşlarını kullan.",
+    "items": [
+      {
+        "key": "lidea-2026",
+        "year": "Mayıs 2026",
+        "title": "LİDEA Girişim Yarışması",
+        "org": "LİDEA Girişim Programı",
+        "result": "Finale kabul",
+        "body": "Clear Cart ile LİDEA Girişim Yarışması'nın finaline katılmaya hak kazandık. Final aşamasına kabul edilmemize rağmen etkinliğe katılım sağlayamadık.",
+        "alt": ["Clear Cart'ın LİDEA Girişim Kuluçka finaline kabul edildiğini duyuran afiş."]
+      },
+      {
+        "key": "tusiad-2026",
+        "year": "Şubat 2026",
+        "title": "TÜSİAD Dönüşümü Hızlandır!",
+        "org": "TÜSİAD Bu Gençlikte İŞ Var!",
+        "result": "Seçilen 15 ekipten biri",
+        "body": "Programa kabul edilen 15 ekip arasında yer aldık. 24–28 Şubat'ta Ankara'da; ODTÜ, Bilkent Üniversitesi ve TÜSİAD Ankara Temsilciliği'nde düzenlenen girişimcilik kampına katılarak Clear Cart'ı geliştirmek için eğitim ve sunum çalışmalarına dahil olduk.",
+        "alt": [
+          "Clear Cart ekibi, TÜSİAD Bu Gençlikte İŞ Var! programının etkinlik alanında.",
+          "Clear Cart ekibinden bir üye, uygulamayı tanıtan ekranın önünde sunum yapıyor."
+        ]
+      },
+      {
+        "key": "tech-istanbul-2025",
+        "year": "Temmuz 2025",
+        "title": "Tech İstanbul Ön Kuluçka",
+        "org": "Tech İstanbul",
+        "result": "Programa kabul",
+        "body": "Clear Cart ile Tech İstanbul Ön Kuluçka Programı'na kabul edildik. Girişimimizi geliştirme yolculuğumuza yeni bir programla devam etme fırsatı kazandık.",
+        "alt": ["Clear Cart'ın Tech İstanbul Ön Kuluçka Programı'na seçildiğini duyuran afiş."]
+      },
+      {
+        "key": "empower-me-2025",
+        "year": "Temmuz 2025",
+        "title": "Empower Me Demo Day",
+        "org": "Habitat Derneği",
+        "result": "Finalist",
+        "body": "Empower Me kapsamındaki uluslararası hızlandırma sürecini tamamlayarak Demo Day'e katılmaya hak kazandık. Alshaya Group ve The Starbucks Foundation desteğiyle yürütülen programın finalinde Clear Cart'ı sunduk.",
+        "alt": [
+          "Clear Cart ekibinden bir üye, Empower Me Demo Day sahnesinde proje sunumu yapıyor."
+        ]
+      },
+      {
+        "key": "tusiad-donusumu-baslat",
+        "year": "Haziran 2025",
+        "title": "TÜSİAD Dönüşümü Başlat!",
+        "org": "TÜSİAD Bu Gençlikte İŞ Var!",
+        "result": "Türkiye ikinciliği",
+        "body": "Dönüşümü Başlat! İş Fikri Yarışması'nın 25 Haziran'da düzenlenen finalinde Türkiye ikincisi olduk. Clear Cart'ın ürün bilgilerine erişimi kolaylaştırma fikrini jüriyle paylaştık.",
+        "alt": ["Clear Cart ekibi, TÜSİAD Dönüşümü Başlat! İş Fikri Yarışması ikincilik duyurusunda."]
+      },
+      {
+        "key": "arge-2025",
+        "year": "Mayıs 2025",
+        "title": "IV. Ar-Ge Pazarı",
+        "org": "Anadolu Üniversiteler Birliği",
+        "result": "Alan üçüncülüğü",
+        "body": "Dört kategoride 322 projenin yer aldığı IV. Ar-Ge Pazarı'nda, Mühendislik ve Temel Bilimler alanında üçüncülük elde ettik.",
+        "alt": ["Clear Cart ekibi, IV. Ar-Ge Pazarı üçüncülük ödülü panosunun önünde."]
+      },
+      {
+        "key": "ja-startup-2025",
+        "year": "Nisan 2025",
+        "title": "JA Startup Türkiye Finali",
+        "org": "Genç Başarı Eğitim Vakfı",
+        "result": "Türkiye ikinciliği",
+        "body": "Genç Başarı Eğitim Vakfı'nın MetLife Foundation desteğiyle yürüttüğü JA Startup 2025 programının Türkiye finalinde ikincilik ödülünü aldık.",
+        "alt": [
+          "Clear Cart ekibi, JA Startup Türkiye 2025 ikincilik ödülü pankartını tutuyor."
+        ]
+      }
+    ]
   }
 }

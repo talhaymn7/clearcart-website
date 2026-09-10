@@ -1,0 +1,108 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui.ts';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+{/*
+  Hero'daki tarama sonucu kartı. Ekran görüntüsü değil, HTML ile kurulur:
+  her boyutta net kalsın ve metinleri çevrilebilir olsun diye. Ürün adı bilerek
+  uydurmadır ("Örnek Marka") — gerçek bir markaya uydurma alerjen sonucu
+  iliştirilmemesi için, i18n'de scan.brandName olarak durur.
+*/}
+<div class="phone-tilt rise mx-auto w-full max-w-[20rem]">
+  {/* Kart gerçek metinlerden kurulu olduğu için ekran okuyucu içeriği okur;
+      örnek olduğunu baştan söylemek gerekiyor. */}
+  <p class="sr-only">{t('scan.sampleNote')}</p>
+
+  <div class="phone-frame">
+    <div class="phone-screen flex flex-col bg-surface-card">
+      <div class="flex items-center gap-2.5 bg-brand-deep px-4 py-3.5 text-white">
+        <svg
+          class="h-[18px] w-[18px]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M15 5l-7 7 7 7"></path>
+        </svg>
+        <span class="text-sm font-semibold">{t('scan.screenTitle')}</span>
+      </div>
+
+      <div class="flex flex-1 flex-col gap-3.5 p-4">
+        <div class="flex items-center gap-3">
+          <div
+            class="grid h-[62px] w-[62px] shrink-0 place-items-center rounded-soft border border-brand/60 bg-gradient-to-br from-brand/30 to-surface-card text-brand-deep"
+            aria-hidden="true"
+          >
+            <svg
+              class="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              focusable="false"
+            >
+              <path d="M12 3l8 4v10l-8 4-8-4V7z"></path>
+              <path d="M4 7l8 4 8-4M12 11v10"></path>
+            </svg>
+          </div>
+
+          <div>
+            <span class="eyebrow block">{t('scan.brandLabel')}</span>
+            <span class="block text-[15px] font-bold">{t('scan.brandName')}</span>
+            <span class="block text-[13px] text-ink-soft">{t('scan.productName')}</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between rounded-soft bg-surface px-3 py-2.5">
+          <span class="text-xs text-ink-soft">{t('scan.scoreLabel')}</span>
+          <span class="text-sm font-bold text-brand-deep">{t('scan.scoreValue')}</span>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <span class="eyebrow">{t('scan.ingredientsLabel')}</span>
+          <span class="text-xs leading-relaxed text-ink-soft">{t('scan.ingredients')}</span>
+        </div>
+
+        <div class="mt-auto rounded-card bg-warn p-4 text-white">
+          <div class="flex items-start gap-2.5">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M12 8.5v5"></path>
+              <path d="M12 17v.1"></path>
+              <circle cx="12" cy="12" r="9"></circle>
+            </svg>
+            <p class="text-[13px] font-semibold leading-snug">{t('scan.warning')}</p>
+          </div>
+
+          <div class="mt-3 flex flex-wrap items-center gap-2 border-t border-white/30 pt-3">
+            <span class="eyebrow text-white/85">{t('scan.allergenLabel')}</span>
+            <span class="rounded-full bg-white px-2.5 py-1 text-xs font-bold tracking-wide text-warn">
+              {t('scan.allergenName')}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

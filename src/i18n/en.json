@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "Clear Cart — Photograph the product, know what's inside",
-    "description": "Clear Cart recognises the product in your hand and checks its ingredients against your own allergy profile. No more squinting at the fine print.",
-    "ogImageAlt": "Clear Cart — product scanning app for people with food allergies",
+    "title": "Clear Cart: Photograph the product, know what's inside",
+    "description": "Clear Cart helps you compare product information with your allergen profile. Scan a product, review its ingredients and make a more informed choice.",
+    "ogImageAlt": "Clear Cart: product scanning app for people with food allergies",
     "langName": "English"
   },
   "nav": {
@@ -17,17 +17,42 @@
       "features": "Features",
       "contact": "Contact",
       "about": "About us",
-      "vision": "Vision and Mission"
+      "vision": "Vision & mission",
+      "achievements": "Achievements"
     },
     "primaryLabel": "Main menu",
     "continue": "Continue to the English page"
   },
   "hero": {
-    "title": "Photograph the product. Know what's inside in seconds.",
-    "subtitle": "Clear Cart recognises the product in your hand and checks its ingredients against your own allergy profile. No more squinting at the fine print.",
+    "badge": "Launching soon",
+    "titleLines": [
+      "Take the photo.",
+      "See what's inside."
+    ],
+    "subtitle": "Clear Cart helps you compare product information with your allergen profile. Scan a product, review its ingredients and make a more informed choice.",
     "primaryCta": "Join the waitlist",
     "secondaryCta": "How it works",
+    "profileLabel": "Your profile:",
+    "profileChips": [
+      "Gluten",
+      "Milk",
+      "Hazelnut"
+    ],
     "imageAlt": "Phone showing the Clear Cart app opening screen."
+  },
+  "scan": {
+    "screenTitle": "Scan result",
+    "brandLabel": "Brand",
+    "brandName": "Sample Brand",
+    "productName": "Wholegrain Crackers 100 g",
+    "scoreLabel": "Match score",
+    "scoreValue": "99.70%",
+    "ingredientsLabel": "Ingredients",
+    "ingredients": "Wheat flour, bran, sunflower oil, salt, yeast, milk powder…",
+    "warning": "This product contains an allergen selected in your profile.",
+    "allergenLabel": "Allergen",
+    "allergenName": "GLUTEN",
+    "sampleNote": "A sample view of the app's scan result screen."
   },
   "problem": {
     "heading": "Shopping with an allergy is exhausting.",
@@ -52,7 +77,7 @@
     "steps": [
       {
         "title": "Take a photo.",
-        "body": "Snap the product — even faster if the barcode is visible."
+        "body": "Snap the product. It is even faster if the barcode is visible."
       },
       {
         "title": "We identify it.",
@@ -60,24 +85,30 @@
       },
       {
         "title": "See the warning.",
-        "body": "Ingredients are matched against your allergy profile and anything risky is flagged."
+        "body": "Product ingredients are compared with your profile, and matching allergens are highlighted."
       }
     ]
   },
   "features": {
     "heading": "What it does",
+    "screenCaption": "Select your allergens once. Every scan uses your profile.",
+    "screenAlt": "Allergen settings screen with a checklist of allergens such as gluten, milk and soy.",
     "items": [
       {
         "title": "Your own profile.",
         "body": "Pick your allergens once; every check uses them."
       },
       {
+        "title": "A separate profile per family member.",
+        "body": "Keep your child's allergens apart and scan against theirs."
+      },
+      {
         "title": "Barcode and visual matching.",
         "body": "If the barcode won't scan, the photo still works."
       },
       {
-        "title": "Seconds, not minutes.",
-        "body": "No standing in the aisle reading labels."
+        "title": "A simpler ingredient check",
+        "body": "Review product information in one place for an easier check while shopping."
       },
       {
         "title": "A growing catalogue.",
@@ -87,7 +118,6 @@
   },
   "screens": {
     "heading": "Inside the app",
-    "description": "Real screenshots from an early build of the app.",
     "items": [
       {
         "caption": "Home screen",
@@ -113,62 +143,146 @@
     "success": "You're on the list. We'll be in touch at launch.",
     "error": "Something went wrong. Please try again.",
     "privacy": "We never share your address, and you can leave the list at any time.",
-    "subject": "Clear Cart — new waitlist signup"
+    "subject": "Clear Cart: new waitlist signup"
   },
   "contact": {
     "heading": "Get in touch",
-    "description": "A question, an idea, or a product you'd like us to add? Email us or send a message on social media.",
+    "description": "A question, an idea, or a product you'd like us to add? Write to us.",
     "emailLabel": "Send an email",
     "instagramLabel": "Instagram",
     "linkedinLabel": "LinkedIn"
   },
   "about": {
-    "metaTitle": "About us — Clear Cart",
-    "metaDescription": "Who builds Clear Cart, and why.",
+    "metaTitle": "About us: Clear Cart",
+    "metaDescription": "Meet the Clear Cart team behind our product, technology and AI development.",
     "heading": "About us",
-    "intro": "We built Clear Cart to take some of the daily weight out of living with an allergy. We're a small team — the product came out of our own need, and that's still how we build it.",
+    "intro": "We are building Clear Cart to make product information easier to access. Our aim is to help people with allergen sensitivities find the information they need while shopping.",
     "teamHeading": "The team",
     "team": {
       "ahmet": {
         "role": "CTO",
-        "bio": "Builds the technical side of the app; looks after the infrastructure from product recognition through to allergen matching."
+        "bio": "Leads the app's technical development and infrastructure, connecting product recognition with allergen matching."
       },
       "asli": {
         "role": "CEO",
-        "bio": "Sets Clear Cart's direction and keeps the team focused on who the product is for, and why."
+        "bio": "Leads product strategy and business development, bringing user needs into Clear Cart's development."
       },
       "tolga": {
         "role": "AI Developer",
-        "bio": "Works on the product recognition models; looks after the part that gets from a photo to the right product."
+        "bio": "Develops image processing and product recognition models and works on AI training."
       }
     }
   },
   "vision": {
-    "metaTitle": "Vision and Mission — Clear Cart",
+    "metaTitle": "Vision and Mission: Clear Cart",
     "metaDescription": "What Clear Cart is aiming for, what it does today, and the principles we build it on.",
     "heading": "Vision and Mission",
     "visionHeading": "Our vision",
-    "visionBody": "We imagine a weekly shop where nobody has to turn a packet over and squint at the fine print. Living with an allergy already takes enough attention; finding out what is inside a product should be the easiest part of that.",
+    "visionBody": "We envision a shopping experience where product ingredients are easier for everyone to understand. We want people with allergen sensitivities to access the information they need and make more informed choices.",
     "missionHeading": "Our mission",
-    "missionBody": "We are building a tool that recognises the product in your hand in seconds and checks its ingredients against your allergy profile. We are not trying to replace the label — we want to shorten the time you spend in the aisle and catch the allergen you might have missed.",
+    "missionBody": "We are developing a mobile app that brings product recognition together with a personal allergen profile. By presenting product information clearly, we aim to make ingredient checks easier while shopping. Checking the product's current label remains part of the process.",
     "valuesHeading": "What we value",
     "values": [
       {
-        "title": "We say when we are unsure.",
-        "body": "If we cannot identify a product, or the ingredient data is incomplete, we tell you rather than hide it. The label on the product always has the final word."
+        "title": "Clear information",
+        "body": "We aim to make product information understandable and to clearly identify missing or uncertain details."
       },
       {
-        "title": "It stays simple.",
-        "body": "We want the app to do one thing well: take the photo, see the answer. No menus, no accounts, no extra steps in between."
+        "title": "Ease of use",
+        "body": "We bring scanning and ingredient checks into a simple flow, focused on the information users need."
       },
       {
-        "title": "Your allergy data is yours.",
-        "body": "An allergy profile is health information. We do not use it for advertising and we do not share it with third parties."
+        "title": "Respect for privacy",
+        "body": "We recognise the sensitivity of personal allergen information and prioritise user privacy in our product decisions."
       }
     ]
   },
   "footer": {
+    "pagesHeading": "Explore",
     "disclaimer": "Clear Cart is a helper, not medical advice. If you have a serious allergy, always check the product label.",
-    "rights": "© 2026 Clear Cart. All rights reserved."
+    "rights": "© 2026 Clear Cart. All rights reserved.",
+    "tagline": "Understand the ingredients. Make informed choices.",
+    "description": "Clear Cart helps you compare product information with your personal allergen profile."
+  },
+  "achievements": {
+    "metaTitle": "Achievements: Clear Cart",
+    "metaDescription": "Clear Cart's competition results, finalist selections and admissions to entrepreneurship programmes.",
+    "eyebrow": "Our startup journey",
+    "heading": "Achievements",
+    "intro": "Programmes that shaped our idea, experiences that helped us grow and recognition along the way. Explore the milestones in Clear Cart's journey.",
+    "galleryLabel": "Event photos",
+    "galleryHint": "Scroll sideways for more photos. On a keyboard, use the left and right arrow keys.",
+    "items": [
+      {
+        "key": "lidea-2026",
+        "year": "May 2026",
+        "title": "LİDEA Startup Competition",
+        "org": "LİDEA Entrepreneurship Programme",
+        "result": "Selected for the final",
+        "body": "Clear Cart qualified for the final of the LİDEA Startup Competition. Although we were selected, we were unable to attend the final event.",
+        "alt": ["Poster announcing Clear Cart's selection for the LİDEA Startup Incubation final."]
+      },
+      {
+        "key": "tusiad-2026",
+        "year": "February 2026",
+        "title": "TÜSİAD Dönüşümü Hızlandır!",
+        "org": "TÜSİAD Bu Gençlikte İŞ Var!",
+        "result": "One of 15 selected teams",
+        "body": "We were one of 15 teams accepted into the programme. From 24 to 28 February, we joined the entrepreneurship camp at METU, Bilkent University and TÜSİAD's Ankara office for training and pitch sessions to develop Clear Cart.",
+        "alt": [
+          "The Clear Cart team at the TÜSİAD Bu Gençlikte İŞ Var! programme venue.",
+          "A Clear Cart team member presenting in front of a screen introducing the app."
+        ]
+      },
+      {
+        "key": "tech-istanbul-2025",
+        "year": "July 2025",
+        "title": "Tech İstanbul Pre-Incubation",
+        "org": "Tech İstanbul",
+        "result": "Accepted into the programme",
+        "body": "Clear Cart was accepted into the Tech İstanbul Pre-Incubation Programme, giving us another opportunity to develop our startup.",
+        "alt": ["Poster announcing Clear Cart's acceptance into the Tech İstanbul Pre-Incubation Programme."]
+      },
+      {
+        "key": "empower-me-2025",
+        "year": "July 2025",
+        "title": "Empower Me Demo Day",
+        "org": "Habitat Association",
+        "result": "Finalist",
+        "body": "After completing the international acceleration stage of Empower Me, we qualified for Demo Day. We presented Clear Cart at the final event of the programme, supported by Alshaya Group and The Starbucks Foundation.",
+        "alt": [
+          "A Clear Cart team member presenting the project on the Empower Me Demo Day stage."
+        ]
+      },
+      {
+        "key": "tusiad-donusumu-baslat",
+        "year": "June 2025",
+        "title": "TÜSİAD Dönüşümü Başlat!",
+        "org": "TÜSİAD Bu Gençlikte İŞ Var!",
+        "result": "Second place in Türkiye",
+        "body": "We took second place in the Dönüşümü Başlat! Business Idea Competition at the final on 25 June. We shared Clear Cart's approach to making product information more accessible with the jury.",
+        "alt": ["The Clear Cart team in the TÜSİAD Dönüşümü Başlat! Business Idea Competition second-place announcement."]
+      },
+      {
+        "key": "arge-2025",
+        "year": "May 2025",
+        "title": "4th R&D Project Market",
+        "org": "Anatolian Universities Union",
+        "result": "Third place in our category",
+        "body": "We placed third in Engineering and Basic Sciences at the 4th R&D Project Market, which brought together 322 projects across four categories.",
+        "alt": ["The Clear Cart team in front of the 4th R&D Project Market third-place award board."]
+      },
+      {
+        "key": "ja-startup-2025",
+        "year": "April 2025",
+        "title": "JA Startup Türkiye Final",
+        "org": "Junior Achievement Türkiye",
+        "result": "Second place in Türkiye",
+        "body": "We won second place at the Türkiye final of JA Startup 2025, organised by Junior Achievement Türkiye with support from the MetLife Foundation.",
+        "alt": [
+          "The Clear Cart team holding the JA Startup Türkiye 2025 second-place award board."
+        ]
+      }
+    ]
   }
 }
